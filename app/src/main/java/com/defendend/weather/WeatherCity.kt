@@ -6,8 +6,8 @@ import java.util.*
 
 
 @Entity
-data class WeatherCity (
-    @PrimaryKey val id: UUID =UUID.randomUUID(),
+data class WeatherCity(
+    @PrimaryKey val id: UUID = UUID.randomUUID(),
     var name: String = "",
     var temperature: Int = 0,
     var windSpeed: Double = 0.0,
