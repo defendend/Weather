@@ -1,7 +1,8 @@
-package com.defendend.weather
+package com.defendend.weather.location
 
 import android.location.Location
 import android.location.LocationListener
+import com.defendend.weather.location.LocationAdapter
 
 class MyLocationListener : LocationListener {
 

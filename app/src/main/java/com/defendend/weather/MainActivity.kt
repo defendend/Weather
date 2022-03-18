@@ -2,15 +2,18 @@ package com.defendend.weather
 
 import android.content.Context
 import android.content.pm.PackageManager
-import android.location.Criteria
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import com.defendend.weather.fragments.WeatherListFragment
+import com.defendend.weather.location.LocationAdapter
+import com.defendend.weather.location.MyLocationListener
 
 private const val REQUEST_CODE_GPS = 100
+private const val DISTANCE_TO_NEW_LOCATION_M = 2_000_0f
+private const val TIME_TO_NEW_LOCATION_MS = 3_600_000L
 
 class MainActivity : AppCompatActivity(), LocationAdapter {
 
@@ -31,7 +34,7 @@ class MainActivity : AppCompatActivity(), LocationAdapter {
         val currentFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentContainer)
         if (currentFragment == null) {
-            val fragment =WeatherListFragment.newInstance()
+            val fragment = WeatherListFragment.newInstance()
             supportFragmentManager
                 .beginTransaction()
                 .add(R.id.fragmentContainer, fragment)
@@ -76,8 +79,8 @@ class MainActivity : AppCompatActivity(), LocationAdapter {
         } else {
             locationManager.requestLocationUpdates(
                 LocationManager.GPS_PROVIDER,
-                30000,
-                10f,
+                TIME_TO_NEW_LOCATION_MS,
+                DISTANCE_TO_NEW_LOCATION_M,
                 myLocationListener
             )
         }

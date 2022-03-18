@@ -1,4 +1,4 @@
-package com.defendend.weather
+package com.defendend.weather.location
 
 import android.location.Location
 
