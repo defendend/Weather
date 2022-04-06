@@ -5,38 +5,42 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class WeatherWrapper(
+    @SerialName("coord")
+    val coord: Coord,
+    @SerialName("weather")
+    val weather: List<Weather>,
     @SerialName("base")
     val base: String,
+    @SerialName("main")
+    val main: Main,
+    @SerialName("visibility")
+    val visibility: Int,
+    @SerialName("wind")
+    val wind: Wind,
     @SerialName("clouds")
     val clouds: Clouds,
     @SerialName("cod")
     val cod: Int,
-    @SerialName("coord")
-    val coord: Coord,
+    @SerialName("rain")
+    val rain: Rain? = null,
+    @SerialName("snow")
+    val snow: Snow? = null,
     @SerialName("dt")
-    val timestampUTC: Int,
+    val timestampUTC: Long,
     @SerialName("id")
-    val id: Int,
-    @SerialName("main")
-    val main: Main,
+    val id: Long,
     @SerialName("name")
     val name: String,
     @SerialName("sys")
     val sys: Sys,
     @SerialName("timezone")
-    val timezone: Int,
-    @SerialName("visibility")
-    val visibility: Int,
-    @SerialName("weather")
-    val weather: List<Weather>,
-    @SerialName("Wind")
-    val wind: Wind
+    val timezone: Int
 )
 
 @Serializable
 data class Weather(
     @SerialName("id")
-    val id: Int,
+    val id: Long,
     @SerialName("main")
     val main: String,
     @SerialName("description")
@@ -46,19 +50,35 @@ data class Weather(
 )
 
 @Serializable
+data class Rain(
+    @SerialName("1h")
+    val oneHour: Double = 0.0,
+    @SerialName("3h")
+    val threeHours: Double = 0.0
+)
+
+@Serializable
+data class Snow(
+    @SerialName("1h")
+    val oneHour: Double = 0.0,
+    @SerialName("3h")
+    val threeHours: Double = 0.0
+)
+
+@Serializable
 data class Sys(
     @SerialName("type")
     val type: Int,
     @SerialName("id")
-    val id: Int,
+    val id: Long,
     @SerialName("message")
-    val message: Double,
+    val message: Double = 0.0,
     @SerialName("country")
-    val country: Int,
+    val country: String,
     @SerialName("sunrise")
-    val sunrise: Long,
+    val sunrise: Int,
     @SerialName("sunset")
-    val sunset: Long
+    val sunset: Int
 )
 
 @Serializable

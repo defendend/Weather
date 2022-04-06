@@ -1,33 +1,33 @@
+
 plugins {
-    id "com.android.application"
-    id "org.jetbrains.kotlin.android"
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+    id("kotlinx-serialization")
+    kotlin("kapt")
 }
 
-apply plugin: 'kotlin-kapt'
-apply plugin: 'kotlinx-serialization'
-
 android {
-    compileSdk 31
+    compileSdk = 31
 
     defaultConfig {
-        applicationId "com.defendend.weather"
-        minSdk 27
-        targetSdk 31
-        versionCode 1
-        versionName "1.0"
+        applicationId = "com.defendend.weather"
+        minSdk = 27
+        targetSdk = 31
+        versionCode = 1
+        versionName = "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+            isMinifyEnabled = false
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
         jvmTarget = "1.8"

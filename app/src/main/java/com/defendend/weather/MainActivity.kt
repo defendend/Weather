@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.defendend.weather.MainActivity.LocationConstants.DISTANCE_TO_NEW_LOCATION_M
@@ -27,6 +28,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 
+private const val TAG = "JsonWeather"
 
 class MainActivity : AppCompatActivity(), LocationAdapter {
 
@@ -86,6 +88,8 @@ class MainActivity : AppCompatActivity(), LocationAdapter {
             longitude = lon.toString(),
             API_KEY = API_KEY
         )
+
+        Log.d(TAG,"LocalWeather $localWeather")
 
     }
 
