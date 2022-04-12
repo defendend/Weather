@@ -3,4 +3,28 @@
 
     <!-- items -->
     <string name="temperature_rec">%d °</string>
+    <string name="min_max_temperature">Макс.:%d°,мин.:%d°</string>
+    <string name="tomorrow_info_grow_true">Повышение температуры завтра, макс. температура: %d°.</string>
+    <string name="tomorrow_info_grow_false">Понижение температуры завтра, макс. температура: %d°.</string>
+    <string name="tomorrow_info_not_changed">Завтра температура не изменится, макс. температура: %d°.</string>
+    <string name="item_temp_now">Сейчас</string>
+    <string name="temp_text_horizontal_recycler">%s°</string>
+    <string name="seven_days_weather_text">прогноз на 7 дней</string>
+    <string name="humidity_text">%d%%</string>
+    <string name="uvi_text_title">уф-индекс</string>
+    <string name="sunrise_text_title">восход солнца</string>
+    <string name="wind_text_title">ветер</string>
+    <string name="precipitation_text_title">осадки</string>
+    <string name="sunset_text">Закат: %s</string>
+    <string name="precipitation_last_day">за последние сутки</string>
+    <string name="precipitation_waiting">%d мм ожидается в течении суток.</string>
+    <string name="precipitation_mm">%d мм</string>
+    <string name="wind_gust">Порывы ветра:</string>
+    <string name="wind_gust_value">До %d м/с</string>
+    <string name="wind_speed">%d м/с</string>
+
+    <!-- load -->
+    <string name="load_text">—.—</string>
+    <string name="min_max_temperature_load">Макс.:,мин.:</string>
+    <string name="tomorrow_info_grow_load">Ожидаем информацию о погоде завтра…</string>
 </resources>

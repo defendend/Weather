@@ -5,37 +5,32 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.defendend.weather.MainActivity.LocationConstants.DISTANCE_TO_NEW_LOCATION_M
 import com.defendend.weather.MainActivity.LocationConstants.REQUEST_CODE_GPS
 import com.defendend.weather.MainActivity.LocationConstants.TIME_TO_NEW_LOCATION_MS
-import com.defendend.weather.api.WeatherApi
-import com.defendend.weather.api.WeatherApi.Constants.API_KEY
-import com.defendend.weather.api.WeatherApi.Constants.API_URL
-import com.defendend.weather.features.weather.WeatherWrapper
-import com.defendend.weather.fragments.WeatherListFragment
+import com.defendend.weather.fragments.WeatherFragment
 import com.defendend.weather.location.LocationAdapter
+import com.defendend.weather.location.LocationProvider
 import com.defendend.weather.location.MyLocationListener
-import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
-import kotlinx.serialization.json.Json
-import okhttp3.MediaType.Companion.toMediaType
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 private const val TAG = "JsonWeather"
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity(), LocationAdapter {
 
     private lateinit var locationManager: LocationManager
     private lateinit var myLocationListener: MyLocationListener
 
-    private val json = Json{ ignoreUnknownKeys = true}
+    @Inject
+    lateinit var locationProvider: LocationProvider
+    private val scope = CoroutineScope(Dispatchers.IO)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,7 +46,7 @@ class MainActivity : AppCompatActivity(), LocationAdapter {
         val currentFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentContainer)
         if (currentFragment == null) {
-            val fragment = WeatherListFragment.newInstance()
+            val fragment = WeatherFragment.newInstance()
             supportFragmentManager
                 .beginTransaction()
                 .add(R.id.fragmentContainer, fragment)
@@ -62,36 +57,13 @@ class MainActivity : AppCompatActivity(), LocationAdapter {
 
 
     override fun onLocationChanged(location: Location) {
-        runBlocking {
-            withContext(coroutineContext) {
-                updateWeather(
-                    lat = location.latitude,
-                    lon = location.longitude
-                )
-            }
+        scope.launch {
+            val lat = location.latitude
+            val lon = location.longitude
+            locationProvider.setLocation(lat to lon)
         }
     }
 
-    private suspend fun updateWeather(lat: Double, lon: Double) {
-
-        val contentType = "application/json".toMediaType()
-
-        val retrofit: Retrofit = Retrofit.Builder()
-            .baseUrl(API_URL)
-            .addConverterFactory(json.asConverterFactory(contentType = contentType))
-            .build()
-
-        val weatherApi: WeatherApi = retrofit.create(WeatherApi::class.java)
-
-        val localWeather = weatherApi.getWeatherFromGeolocation(
-            latitude = lat.toString(),
-            longitude = lon.toString(),
-            API_KEY = API_KEY
-        )
-
-        Log.d(TAG,"LocalWeather $localWeather")
-
-    }
 
     override fun onRequestPermissionsResult(
         requestCode: Int,

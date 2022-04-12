@@ -55,9 +55,9 @@ class WeatherListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         weatherListViewModel.weatherListLiveData.observe(
             viewLifecycleOwner,
-            Observer { weatherCitys ->
-                weatherCitys?.let {
-                    updateUI(weatherCitys)
+            Observer { weatherCites ->
+                weatherCites?.let {
+                    updateUI(weatherCites)
                 }
             }
         )

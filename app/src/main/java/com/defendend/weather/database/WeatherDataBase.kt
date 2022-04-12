@@ -7,7 +7,7 @@ import com.defendend.weather.WeatherCity
 
 @Database(entities = [WeatherCity::class], version = 1)
 @TypeConverters(WeatherTypeConverters::class)
-abstract class WeatherDataBase : RoomDatabase(){
+abstract class WeatherDataBase : RoomDatabase() {
 
-    abstract fun weatherDao():WeatherDao
+    abstract fun weatherDao(): WeatherDao
 }

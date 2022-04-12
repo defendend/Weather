@@ -12,5 +12,4 @@ data class WeatherCity(
     var temperature: Int = 0,
     var windSpeed: Double = 0.0,
     val geolocation: Boolean = false
-) {
-}
+)
