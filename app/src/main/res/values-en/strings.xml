@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Weather</string>
+
+    <!-- items -->
+    <string name="temperature_rec">%s°</string>
+    <string name="min_max_temperature">Max.:%d°,min.:%d°</string>
+    <string name="tomorrow_info_grow_true">Temperature rise tomorrow, maximum temperature: %d°.</string>
+    <string name="tomorrow_info_grow_false">Temperature drop tomorrow, maximum temperature: %d°.</string>
+    <string name="tomorrow_info_not_changed">Tomorrow the temperature will not change, maximum temperature: %d°.</string>
+    <string name="temp_text_horizontal_recycler">%s°</string>
+    <string name="humidity_text">%d%%</string>
+    <string name="sunset_text">Sunset: %s</string>
+    <string name="precipitation_waiting">%d is expected in there blue days.</string>
+    <string name="precipitation_mm">%s mm</string>
+    <string name="wind_gust">Gusts of wind:</string>
+    <string name="wind_gust_value">Up to %d m/s</string>
+    <string name="wind_speed">%d m/s</string>
+    <string name="pressure_title">pressure</string>
+    <string name="pressure_mm">%s mmHg</string>
+    <string name="humidity_title">humidity</string>
+    <string name="visibility_title">visibility</string>
+    <string name="humidity_text_card_view">%d %%</string>
+    <string name="dew_point_text">Dew point now: %s°</string>
+    <string name="visibility_distance">%d km</string>
+
+    <!-- load -->
+    <string name="load_text">—.—</string>
+    <string name="min_max_temperature_load">Max.:,min.:</string>
+    <string name="precipitation_last_day">during the day</string>
+    <string name="precipitation_text_title">precipitation</string>
+    <string name="wind_text_title">wind</string>
+    <string name="sunrise_text_title">Sunrise</string>
+    <string name="uvi_text_title">uv-index</string>
+    <string name="seven_days_weather_text">forecast for 7 days</string>
+    <string name="item_temp_now">Now</string>
+    <string name="tomorrow_info_grow_load">Waiting for weather information…</string>
+    <string name="today_text_daily">Today</string>
+    <string name="feels_like_title">feels like</string>
+
+</resources>

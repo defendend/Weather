@@ -72,6 +72,33 @@ class WeatherFragment : Fragment() {
     private val windDirectionTextView: TextView?
         get() = view?.findViewById(R.id.wind_direction_text_view)
 
+    private val precipitationTextView: TextView?
+        get() = view?.findViewById(R.id.precipitation_mm_text_view)
+
+    private val precipitationDescriptionTextView: TextView?
+        get() = view?.findViewById(R.id.precipitation_description_text)
+
+    private val windGustDescriptionTextView: TextView?
+        get() = view?.findViewById(R.id.wind_gust_description)
+
+    private val feelsTempTextView: TextView?
+        get() = view?.findViewById(R.id.feels_temp)
+
+    private val feelsDescriptionTextView: TextView?
+        get() = view?.findViewById(R.id.feels_like_description)
+
+    private val pressureMmTextView: TextView?
+        get() = view?.findViewById(R.id.pressure_mm)
+
+    private val humidityTextView: TextView?
+        get() = view?.findViewById(R.id.current_humidity_text_view)
+
+    private val dewPointTextView: TextView?
+        get() = view?.findViewById(R.id.dew_point_text_view)
+
+    private val visibilityTextView: TextView?
+        get() = view?.findViewById(R.id.visibility_distance)
+
     private val viewModel: WeatherViewModel by viewModels()
 
     private var adapterHourly: WeatherHourlyAdapter? = WeatherHourlyAdapter(emptyList())
@@ -130,15 +157,19 @@ class WeatherFragment : Fragment() {
         descriptionTextView?.text = getString(R.string.load_text)
         minMaxTemperature?.text = getString(R.string.min_max_temperature_load)
         tomorrowDescriptionTextView?.text = getString(R.string.tomorrow_info_grow_load)
-
+        precipitationDescriptionTextView?.visibility = View.INVISIBLE
+        windGustDescriptionTextView?.visibility = View.INVISIBLE
     }
 
     private fun showData(data: WeatherState.Data) {
         cityName?.text = data.currentCity
-        currentTemperature?.text = data.currentTemperature
+        currentTemperature?.text = getString(R.string.temperature_rec, data.currentTemperature)
         descriptionTextView?.text = data.description
         minMaxTemperature?.text =
             getString(R.string.min_max_temperature, data.maxTemp, data.minTemp)
+
+        precipitationDescriptionTextView?.visibility = View.VISIBLE
+        windGustDescriptionTextView?.visibility = View.VISIBLE
 
         val (tempInfo, maxTemp) = data.tomorrowInfo
         val (isTempNotChanged, isTempGrow) = tempInfo
@@ -167,6 +198,13 @@ class WeatherFragment : Fragment() {
         windSpeedTextView?.text = getString(R.string.wind_speed, data.windSpeed)
         windGustTextView?.text = getString(R.string.wind_gust_value, data.windGust)
         windDirectionTextView?.text = data.windDirection
+        precipitationTextView?.text = getString(R.string.precipitation_mm, data.precipitation)
+        feelsTempTextView?.text = getString(R.string.temperature_rec, data.feelsLike)
+        feelsDescriptionTextView?.text = data.feelsLikeDescription
+        pressureMmTextView?.text = getString(R.string.pressure_mm, data.pressureMm)
+        humidityTextView?.text = getString(R.string.humidity_text_card_view, data.humidity)
+        dewPointTextView?.text = getString(R.string.dew_point_text, data.dewPoint)
+        visibilityTextView?.text = getString(R.string.visibility_distance, data.visibility)
     }
 
     private fun setSunTimes(sunrise: Long, sunset: Long) {
@@ -226,7 +264,7 @@ class WeatherFragment : Fragment() {
 
                 humidityTextView.text = getString(R.string.humidity_text, humidity)
 
-                dayOfWeekTextView.text = "Сегодня"
+                dayOfWeekTextView.text = getString(R.string.today_text_daily)
 
                 minTempTextView.text = getString(
                     R.string.temp_text_horizontal_recycler,

@@ -12,6 +12,8 @@ class MyLocationListener : LocationListener {
         locationAdapter.onLocationChanged(location)
     }
 
+
+
     fun setLocationAdapter(locationAdapter: LocationAdapter){
         this.locationAdapter = locationAdapter
     }

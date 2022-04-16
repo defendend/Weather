@@ -6,7 +6,7 @@
 
     <View
         android:id="@+id/view"
-        android:layout_width="80dp"
+        android:layout_width="@dimen/hourly_width_now"
         android:layout_height="1dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/item_temp_now"
-        android:textSize="18sp"
+        android:textSize="@dimen/card_view_text_size_normal"
         app:layout_constraintStart_toStartOf="@id/view"
         app:layout_constraintTop_toTopOf="@id/view" />
 
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/small_space"
         android:text="5°"
-        android:textSize="18sp"
+        android:textSize="@dimen/card_view_text_size_normal"
         app:layout_constraintEnd_toEndOf="@id/weather_hour_text_view"
         app:layout_constraintStart_toStartOf="@id/weather_hour_text_view"
         app:layout_constraintTop_toBottomOf="@id/weather_icon" />

@@ -35,5 +35,7 @@ interface WeatherApi {
     object Constants{
         const val API_KEY = "65026bbc1e33bb883cd79a2a0f8955b9"
         const val API_URL = "https://api.openweathermap.org/"
+        const val TAG_RU = "ru"
+        const val TAG_EN = "en"
     }
 }

@@ -5,22 +5,28 @@
       <map>
         <entry key="..\:/Users/ivsac/Weather/app/src/main/res/drawable-anydpi/ic_clouds.xml" value="0.1" />
         <entry key="..\:/Users/ivsac/Weather/app/src/main/res/drawable-anydpi/ic_thermostat.xml" value="0.156" />
+        <entry key="..\:/Users/ivsac/Weather/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="..\:/Users/ivsac/Weather/app/src/main/res/drawable/ic_broken_clouds.xml" value="0.1" />
         <entry key="..\:/Users/ivsac/Weather/app/src/main/res/drawable/ic_clear_sky.xml" value="0.1" />
         <entry key="..\:/Users/ivsac/Weather/app/src/main/res/drawable/ic_clouds.xml" value="0.1" />
+        <entry key="..\:/Users/ivsac/Weather/app/src/main/res/drawable/ic_few_cloud.xml" value="0.1" />
         <entry key="..\:/Users/ivsac/Weather/app/src/main/res/drawable/ic_few_clouds.xml" value="0.1" />
+        <entry key="..\:/Users/ivsac/Weather/app/src/main/res/drawable/ic_humidity.xml" value="0.1" />
+        <entry key="..\:/Users/ivsac/Weather/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/Users/ivsac/Weather/app/src/main/res/drawable/ic_moon.xml" value="0.1" />
         <entry key="..\:/Users/ivsac/Weather/app/src/main/res/drawable/ic_moon_clouds.xml" value="0.1" />
         <entry key="..\:/Users/ivsac/Weather/app/src/main/res/drawable/ic_precipitation.xml" value="0.1" />
+        <entry key="..\:/Users/ivsac/Weather/app/src/main/res/drawable/ic_pressure.xml" value="0.1" />
         <entry key="..\:/Users/ivsac/Weather/app/src/main/res/drawable/ic_rain.xml" value="0.1" />
         <entry key="..\:/Users/ivsac/Weather/app/src/main/res/drawable/ic_snow.xml" value="0.1" />
         <entry key="..\:/Users/ivsac/Weather/app/src/main/res/drawable/ic_snower_rain.xml" value="0.1" />
         <entry key="..\:/Users/ivsac/Weather/app/src/main/res/drawable/ic_sun.xml" value="0.1" />
         <entry key="..\:/Users/ivsac/Weather/app/src/main/res/drawable/ic_sunrise.xml" value="0.1" />
+        <entry key="..\:/Users/ivsac/Weather/app/src/main/res/drawable/ic_thermostat.xml" value="0.1" />
         <entry key="..\:/Users/ivsac/Weather/app/src/main/res/drawable/ic_thunderstorm.xml" value="0.1" />
         <entry key="..\:/Users/ivsac/Weather/app/src/main/res/drawable/ic_wind.xml" value="0.1" />
         <entry key="..\:/Users/ivsac/Weather/app/src/main/res/layout/activity_main.xml" value="0.176" />
-        <entry key="..\:/Users/ivsac/Weather/app/src/main/res/layout/fragment_weather.xml" value="0.24010416666666667" />
+        <entry key="..\:/Users/ivsac/Weather/app/src/main/res/layout/fragment_weather.xml" value="0.264" />
         <entry key="..\:/Users/ivsac/Weather/app/src/main/res/layout/fragment_weather_list.xml" value="0.22604166666666667" />
         <entry key="..\:/Users/ivsac/Weather/app/src/main/res/layout/item_list_daily_weather.xml" value="0.22604166666666667" />
         <entry key="..\:/Users/ivsac/Weather/app/src/main/res/layout/list_item_current_weather.xml" value="0.22604166666666667" />

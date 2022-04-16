@@ -63,7 +63,7 @@ dependencies {
     annotationProcessor("androidx.room:room-compiler:2.4.2")
     kapt("androidx.room:room-compiler:2.4.2")
 
-
+    implementation("com.google.android.gms:play-services-location:19.0.1")
 
     implementation("com.google.dagger:hilt-android:2.41")
     kapt("com.google.dagger:hilt-compiler:2.41")

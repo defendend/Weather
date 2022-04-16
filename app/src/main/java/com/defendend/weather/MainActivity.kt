@@ -1,12 +1,18 @@
 package com.defendend.weather
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
+import android.os.Looper
+import android.provider.Settings
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.view.WindowCompat
 import com.defendend.weather.MainActivity.LocationConstants.DISTANCE_TO_NEW_LOCATION_M
 import com.defendend.weather.MainActivity.LocationConstants.REQUEST_CODE_GPS
 import com.defendend.weather.MainActivity.LocationConstants.TIME_TO_NEW_LOCATION_MS
@@ -14,11 +20,14 @@ import com.defendend.weather.fragments.WeatherFragment
 import com.defendend.weather.location.LocationAdapter
 import com.defendend.weather.location.LocationProvider
 import com.defendend.weather.location.MyLocationListener
+import com.google.android.gms.location.*
+import com.google.android.gms.tasks.OnCompleteListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
 
 private const val TAG = "JsonWeather"
 
@@ -27,6 +36,7 @@ class MainActivity : AppCompatActivity(), LocationAdapter {
 
     private lateinit var locationManager: LocationManager
     private lateinit var myLocationListener: MyLocationListener
+    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
     @Inject
     lateinit var locationProvider: LocationProvider
@@ -37,11 +47,15 @@ class MainActivity : AppCompatActivity(), LocationAdapter {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         myLocationListener = MyLocationListener().apply {
             setLocationAdapter(this@MainActivity)
         }
-        checkPermissions()
+        checkUserPermissions()
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
         val currentFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentContainer)
@@ -64,6 +78,36 @@ class MainActivity : AppCompatActivity(), LocationAdapter {
         }
     }
 
+    @SuppressLint("MissingPermission")
+    private fun getLastLocation() {
+        if (checkPermissions()) {
+
+            // check if location is enabled
+            if (isLocationEnabled()) {
+
+                // getting last
+                // location from
+                // FusedLocationClient
+                // object
+                fusedLocationProviderClient.lastLocation
+                    .addOnCompleteListener(OnCompleteListener<Location?> { task ->
+                        val location = task.result
+                        if (location == null) {
+                            requestNewLocationData()
+                        } else {
+                            locationProvider.setLocation(location.latitude to location.longitude)
+                        }
+                    })
+            } else {
+                Toast.makeText(this, "Please turn on" + " your location...", Toast.LENGTH_LONG)
+                    .show()
+                val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                startActivity(intent)
+            }
+        } else {
+            askUserForPermissions()
+        }
+    }
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -73,11 +117,64 @@ class MainActivity : AppCompatActivity(), LocationAdapter {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
         if (requestCode == REQUEST_CODE_GPS && grantResults[0] == RESULT_OK) {
-            checkPermissions()
+            checkUserPermissions()
         }
     }
 
-    private fun checkPermissions() {
+    override fun onResume() {
+        super.onResume()
+        if (checkPermissions()) {
+            getLastLocation()
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun requestNewLocationData() {
+
+        // Initializing LocationRequest
+        // object with appropriate methods
+        val mLocationRequest = LocationRequest()
+        mLocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        mLocationRequest.interval = 5
+        mLocationRequest.fastestInterval = 0
+        mLocationRequest.numUpdates = 1
+
+        // setting LocationRequest
+        // on FusedLocationClient
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+        fusedLocationProviderClient.requestLocationUpdates(
+            mLocationRequest,
+            mLocationCallback,
+            Looper.getMainLooper()
+        )
+    }
+
+    private fun checkPermissions(): Boolean {
+        return ActivityCompat.checkSelfPermission(
+            this,
+            android.Manifest.permission.ACCESS_COARSE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+            this,
+            android.Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
+
+    }
+
+    private val mLocationCallback: LocationCallback = object : LocationCallback() {
+        override fun onLocationResult(locationResult: LocationResult) {
+            val mLastLocation = locationResult.lastLocation
+            locationProvider.setLocation(mLastLocation.latitude to mLastLocation.longitude)
+        }
+    }
+
+    private fun isLocationEnabled(): Boolean {
+        val locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
+            LocationManager.NETWORK_PROVIDER
+        )
+    }
+
+    private fun checkUserPermissions() {
         if (ActivityCompat
                 .checkSelfPermission(
                     this,
@@ -89,6 +186,12 @@ class MainActivity : AppCompatActivity(), LocationAdapter {
                     this,
                     android.Manifest
                         .permission.ACCESS_COARSE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED
+            && ActivityCompat
+                .checkSelfPermission(
+                    this,
+                    android.Manifest
+                        .permission.ACCESS_BACKGROUND_LOCATION
                 ) != PackageManager.PERMISSION_GRANTED
         ) {
             askUserForPermissions()
@@ -114,7 +217,7 @@ class MainActivity : AppCompatActivity(), LocationAdapter {
 
     object LocationConstants {
         const val REQUEST_CODE_GPS = 100
-        const val DISTANCE_TO_NEW_LOCATION_M = 2_000_0f
+        const val DISTANCE_TO_NEW_LOCATION_M = 2_000f
         const val TIME_TO_NEW_LOCATION_MS = 3_600_000L
     }
 }

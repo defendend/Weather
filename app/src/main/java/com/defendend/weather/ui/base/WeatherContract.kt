@@ -30,7 +30,14 @@ sealed class WeatherState : UiState {
         val sunset: Long,
         val windSpeed: Int,
         val windGust: Int,
-        val windDirection: String
+        val windDirection: String,
+        val precipitation: String,
+        val feelsLike: String,
+        val feelsLikeDescription: String,
+        val pressureMm: String,
+        val humidity: Int,
+        val dewPoint: String,
+        val visibility: Int
     ) : WeatherState()
 }
 
