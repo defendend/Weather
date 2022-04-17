@@ -13,7 +13,11 @@ private const val LONGITUDE = "longitude"
 private const val LOCATION_FILE = "_location"
 
 @Singleton
-class LocationProvider @Inject constructor(@ApplicationContext private val context: Context) {
+class LocationProvider @Inject constructor(@ApplicationContext context: Context) {
+    private val preferences = context.getSharedPreferences(
+        context.applicationContext.packageName + LOCATION_FILE,
+        Context.MODE_PRIVATE
+    )
     private val _coordinates = MutableStateFlow(getInitialCoordinates())
     val coordinates = _coordinates.filterNotNull()
 
@@ -40,38 +44,22 @@ class LocationProvider @Inject constructor(@ApplicationContext private val conte
     }
 
     private fun getLatitude(): String? {
-        val pref = context.getSharedPreferences(
-            context.applicationContext.packageName + LOCATION_FILE,
-            Context.MODE_PRIVATE
-        )
-        return pref.getString(LATITUDE, "")
+        return preferences.getString(LATITUDE, "")
     }
 
     private fun getLongitude(): String? {
-        val pref = context.getSharedPreferences(
-            context.applicationContext.packageName + LOCATION_FILE,
-            Context.MODE_PRIVATE
-        )
-        return pref.getString(LONGITUDE, "")
+        return preferences.getString(LONGITUDE, "")
     }
 
     private fun setLatitude(latitude: String) {
-        context.getSharedPreferences(
-            context.applicationContext.packageName + LOCATION_FILE,
-            Context.MODE_PRIVATE
-        )
-            .edit {
-                putString(LATITUDE, latitude)
-            }
+        preferences.edit {
+            putString(LATITUDE, latitude)
+        }
     }
 
     private fun setLongitude(longitude: String) {
-        context.getSharedPreferences(
-            context.applicationContext.packageName + LOCATION_FILE,
-            Context.MODE_PRIVATE
-        )
-            .edit {
-                putString(LATITUDE, longitude)
-            }
+        preferences.edit {
+            putString(LATITUDE, longitude)
+        }
     }
 }

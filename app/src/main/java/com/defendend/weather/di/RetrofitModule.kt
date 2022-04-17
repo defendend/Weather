@@ -1,7 +1,6 @@
-package com.defendend.weather.app
+package com.defendend.weather.di
 
 import com.defendend.weather.api.WeatherApi
-import com.defendend.weather.features.weather.WeatherResponseWrapper
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
@@ -13,7 +12,7 @@ import retrofit2.Retrofit
 import javax.inject.Singleton
 
 private val json = Json { ignoreUnknownKeys = true }
-private val contentType = "application/json".toMediaType()
+private const val JSON_TYPE = "application/json"
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -21,7 +20,7 @@ object RetrofitModule {
 
     @Provides
     fun provideRetrofit(): Retrofit = Retrofit.Builder()
-        .addConverterFactory(json.asConverterFactory(contentType = contentType))
+        .addConverterFactory(json.asConverterFactory(contentType = JSON_TYPE.toMediaType()))
         .baseUrl(WeatherApi.Constants.API_URL)
         .build()
 

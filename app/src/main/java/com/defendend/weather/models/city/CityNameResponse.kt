@@ -1,4 +1,4 @@
-package com.defendend.weather.features.city
+package com.defendend.weather.models.city
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

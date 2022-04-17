@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
-import java.lang.Exception
 
 
 abstract class BaseViewModel<State : UiState> : ViewModel() {

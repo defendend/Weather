@@ -1,7 +1,7 @@
 package com.defendend.weather.ui.base
 
-import com.defendend.weather.features.weather.Daily
-import com.defendend.weather.features.weather.Hourly
+import com.defendend.weather.models.weather.Daily
+import com.defendend.weather.models.weather.Hourly
 
 
 sealed class WeatherEvent : UiEvent {
@@ -24,16 +24,16 @@ sealed class WeatherState : UiState {
         val hourly: List<Hourly>,
         val daily: List<Daily>,
         val uvIndex: String,
-        val uvIndexLevel: String,
-        val uvIndexDescription: String,
+        val uvIndexLevel: Int,
+        val uvIndexDescription: Pair<Int,Int>,
         val sunrise: Long,
         val sunset: Long,
         val windSpeed: Int,
         val windGust: Int,
-        val windDirection: String,
+        val windDirection: Int,
         val precipitation: String,
         val feelsLike: String,
-        val feelsLikeDescription: String,
+        val feelsLikeDescription: Int,
         val pressureMm: String,
         val humidity: Int,
         val dewPoint: String,

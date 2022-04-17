@@ -36,4 +36,44 @@
     <string name="load_text">—.—</string>
     <string name="min_max_temperature_load">Макс.:,мин.:</string>
     <string name="tomorrow_info_grow_load">Ожидаем информацию о погоде завтра…</string>
+
+    <!-- wind directions -->
+
+    <string name="north">Северный</string>
+    <string name="north_northeast">Северный, северо-восточный</string>
+    <string name="northeast">Северо-восточный</string>
+    <string name="east_northeast">Восточный, северо-восточный</string>
+    <string name="eastern">Восточный</string>
+    <string name="eastern_southeastern">Восточный, юго-восточный</string>
+    <string name="southeastern">Юго-восточный</string>
+    <string name="south_south_east">Южный, юго-восточный</string>
+    <string name="south">Южный</string>
+    <string name="south_southwest">Южный, юго-западный</string>
+    <string name="southwest">Юго-западный</string>
+    <string name="west_southwest">Западный, юго-западный</string>
+    <string name="west">Западный</string>
+    <string name="western_north_western">Западный, северо-западный</string>
+    <string name="northwest">Северо-западный</string>
+    <string name="north_north_west">Северный, северо-западный</string>
+    <string name="empty_string" />
+
+    <!-- feels description -->
+
+    <string name="feels_cold">По ощущениям холоднее из-за ветра.</string>
+    <string name="feels_cooler">По ощущениям прохладнее из-за ветра.</string>
+    <string name="feels_hotter">По ощущениям жарче из-за отсутствия ветра.</string>
+    <string name="feels_same">По ощущениям примерно так же.</string>
+
+    <!-- uv index -->
+    <string name="low">Низкий</string>
+    <string name="moderate">Умеренный</string>
+    <string name="high">Высокий</string>
+    <string name="very_high">Очень высокий</string>
+    <string name="excessive">Черезмерный</string>
+    <string name="not_determined">Неопределен</string>
+
+    <!-- uv index level -->
+    <string name="not_changed_lvl">"Остается % до конца дня."</string>
+    <string name="during_in_day">В течении дня станет: %s.</string>
+    <string name="decrease_in_day">К концу дня уменшится до: %s.</string>
 </resources>

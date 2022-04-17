@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_marginEnd="@dimen/small_space">
 
     <View
         android:id="@+id/view"
         android:layout_width="45dp"
         android:layout_height="1dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/weather_hour_text_view"
@@ -17,30 +19,30 @@
         android:layout_height="wrap_content"
         android:text="2"
         android:textSize="18sp"
-        android:layout_marginStart="@dimen/small_space"
+        app:layout_constraintEnd_toEndOf="@id/view"
         app:layout_constraintStart_toStartOf="@id/view"
-        app:layout_constraintTop_toTopOf="@id/view"/>
+        app:layout_constraintTop_toTopOf="@id/view" />
 
     <ImageView
         android:id="@+id/weather_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_clouds"
         android:layout_marginTop="@dimen/small_space"
-        app:layout_constraintStart_toStartOf="@id/weather_hour_text_view"
+        android:src="@drawable/ic_clouds"
         app:layout_constraintEnd_toEndOf="@id/weather_hour_text_view"
-        app:layout_constraintTop_toBottomOf="@id/weather_hour_text_view"/>
+        app:layout_constraintStart_toStartOf="@id/weather_hour_text_view"
+        app:layout_constraintTop_toBottomOf="@id/weather_hour_text_view" />
 
     <TextView
         android:id="@+id/temp_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="5°"
         android:layout_marginTop="@dimen/small_space"
+        android:text="5°"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@id/weather_hour_text_view"
         app:layout_constraintEnd_toEndOf="@id/weather_hour_text_view"
-        app:layout_constraintTop_toBottomOf="@id/weather_icon"/>
+        app:layout_constraintStart_toStartOf="@id/weather_hour_text_view"
+        app:layout_constraintTop_toBottomOf="@id/weather_icon" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

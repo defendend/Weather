@@ -58,7 +58,7 @@
             tools:text="Санкт-Петербург" />
 
         <TextView
-            android:id="@+id/current_temp"
+            android:id="@+id/current_temperature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAlignment="center"
@@ -76,11 +76,11 @@
             android:textSize="@dimen/title_text_size"
             app:layout_constraintEnd_toStartOf="@id/end_line"
             app:layout_constraintStart_toEndOf="@id/start_line"
-            app:layout_constraintTop_toBottomOf="@id/current_temp"
+            app:layout_constraintTop_toBottomOf="@id/current_temperature"
             tools:text="Облачно" />
 
         <TextView
-            android:id="@+id/max_min_temp"
+            android:id="@+id/max_min_temperature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAlignment="center"
@@ -100,7 +100,7 @@
             app:layout_constraintEnd_toStartOf="@id/end_line"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@id/start_line"
-            app:layout_constraintTop_toBottomOf="@id/max_min_temp">
+            app:layout_constraintTop_toBottomOf="@id/max_min_temperature">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -109,7 +109,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/temp_description"
+                    android:id="@+id/hourly_temp_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/hourly_temperature_info_text_size"
@@ -123,7 +123,7 @@
                     android:background="@color/black" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_horizontal_view"
+                    android:id="@+id/hourly_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -153,13 +153,6 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:id="@+id/thermostat_image_view"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_thermostat" />
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -167,7 +160,7 @@
                         android:text="@string/seven_days_weather_text"
                         android:textAllCaps="true"
                         android:textSize="@dimen/card_view_title_text_size_normal"
-                        app:layout_constraintStart_toEndOf="@id/thermostat_image_view" />
+                        app:drawableStartCompat="@drawable/ic_thermostat"/>
                 </LinearLayout>
 
                 <View
@@ -210,20 +203,14 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_sun" />
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/small_space"
                         android:text="@string/uvi_text_title"
                         android:textAllCaps="true"
-                        android:textSize="@dimen/card_view_title_text_size_normal" />
+                        android:textSize="@dimen/card_view_title_text_size_normal"
+                        app:drawableStartCompat="@drawable/ic_sun"/>
                 </LinearLayout>
 
                 <TextView
@@ -270,20 +257,14 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_sunrise" />
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/small_space"
                         android:text="@string/sunrise_text_title"
                         android:textAllCaps="true"
-                        android:textSize="@dimen/sunrise_title_size" />
+                        android:textSize="@dimen/sunrise_title_size"
+                        app:drawableStartCompat="@drawable/ic_sunrise"/>
                 </LinearLayout>
 
                 <TextView
@@ -326,20 +307,14 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_wind" />
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/small_space"
                         android:text="@string/wind_text_title"
                         android:textAllCaps="true"
-                        android:textSize="@dimen/card_view_title_text_size_normal" />
+                        android:textSize="@dimen/card_view_title_text_size_normal"
+                        app:drawableStartCompat="@drawable/ic_wind"/>
                 </LinearLayout>
 
                 <TextView
@@ -395,20 +370,14 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_precipitation" />
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/small_space"
                         android:text="@string/precipitation_text_title"
                         android:textAllCaps="true"
-                        android:textSize="@dimen/precipitation_title_size" />
+                        android:textSize="@dimen/precipitation_title_size"
+                        app:drawableStartCompat="@drawable/ic_precipitation"/>
                 </LinearLayout>
 
                 <TextView
@@ -457,20 +426,14 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_thermostat" />
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/small_space"
                         android:text="@string/feels_like_title"
                         android:textAllCaps="true"
-                        android:textSize="@dimen/feels_like_title_size" />
+                        android:textSize="@dimen/feels_like_title_size"
+                        app:drawableStartCompat="@drawable/ic_thermostat"/>
                 </LinearLayout>
 
                 <TextView
@@ -512,24 +475,18 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_pressure" />
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/small_space"
                         android:text="@string/pressure_title"
                         android:textAllCaps="true"
-                        android:textSize="@dimen/card_view_title_text_size_normal" />
+                        android:textSize="@dimen/card_view_title_text_size_normal"
+                        app:drawableStartCompat="@drawable/ic_pressure"/>
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/pressure_mm"
+                    android:id="@+id/pressure_mm_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/card_view_value_size" />
@@ -561,20 +518,14 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_humidity" />
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/small_space"
                         android:text="@string/humidity_title"
                         android:textAllCaps="true"
-                        android:textSize="@dimen/card_view_title_text_size_normal" />
+                        android:textSize="@dimen/card_view_title_text_size_normal"
+                        app:drawableStartCompat="@drawable/ic_humidity"/>
                 </LinearLayout>
 
                 <TextView
@@ -619,20 +570,14 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_visibility" />
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/small_space"
                         android:text="@string/visibility_title"
                         android:textAllCaps="true"
-                        android:textSize="@dimen/card_view_title_text_size_normal" />
+                        android:textSize="@dimen/card_view_title_text_size_normal"
+                        app:drawableStartCompat="@drawable/ic_visibility"/>
                 </LinearLayout>
 
                 <TextView

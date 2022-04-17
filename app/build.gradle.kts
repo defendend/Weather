@@ -35,6 +35,10 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -67,6 +71,11 @@ dependencies {
 
     implementation("com.google.dagger:hilt-android:2.41")
     kapt("com.google.dagger:hilt-compiler:2.41")
+
+    implementation("com.github.kirich1409:viewbindingpropertydelegate:1.5.3")
+
+    // To use only without reflection variants of viewBinding
+    implementation("com.github.kirich1409:viewbindingpropertydelegate-noreflection:1.5.3")
 
     // For instrumentation tests
     androidTestImplementation("com.google.dagger:hilt-android-testing:2.41")

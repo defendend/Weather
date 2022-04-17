@@ -1,8 +1,8 @@
 package com.defendend.weather.api
 
 import com.defendend.weather.api.WeatherApi.Constants.API_KEY
-import com.defendend.weather.features.city.CityNameResponse
-import com.defendend.weather.features.weather.WeatherResponseWrapper
+import com.defendend.weather.models.city.CityNameResponse
+import com.defendend.weather.models.weather.WeatherResponseWrapper
 import retrofit2.http.GET
 import retrofit2.http.Query
 

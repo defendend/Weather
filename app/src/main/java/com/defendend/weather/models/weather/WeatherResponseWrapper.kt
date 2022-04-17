@@ -1,4 +1,4 @@
-package com.defendend.weather.features.weather
+package com.defendend.weather.models.weather
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

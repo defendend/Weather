@@ -16,10 +16,8 @@ import androidx.core.view.WindowCompat
 import com.defendend.weather.MainActivity.LocationConstants.DISTANCE_TO_NEW_LOCATION_M
 import com.defendend.weather.MainActivity.LocationConstants.REQUEST_CODE_GPS
 import com.defendend.weather.MainActivity.LocationConstants.TIME_TO_NEW_LOCATION_MS
-import com.defendend.weather.fragments.WeatherFragment
-import com.defendend.weather.location.LocationAdapter
 import com.defendend.weather.location.LocationProvider
-import com.defendend.weather.location.MyLocationListener
+import com.defendend.weather.ui.weather.WeatherFragment
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.OnCompleteListener
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,15 +25,15 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import android.location.LocationListener
 
 
 private const val TAG = "JsonWeather"
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), LocationAdapter {
+class MainActivity : AppCompatActivity(), LocationListener {
 
     private lateinit var locationManager: LocationManager
-    private lateinit var myLocationListener: MyLocationListener
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
     @Inject
@@ -50,9 +48,6 @@ class MainActivity : AppCompatActivity(), LocationAdapter {
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        myLocationListener = MyLocationListener().apply {
-            setLocationAdapter(this@MainActivity)
-        }
         checkUserPermissions()
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
@@ -128,6 +123,11 @@ class MainActivity : AppCompatActivity(), LocationAdapter {
         }
     }
 
+    private fun isPermissionGranted(permission: String): Boolean {
+        val result = ActivityCompat.checkSelfPermission(this, permission)
+        return result == PackageManager.PERMISSION_GRANTED
+    }
+
     @SuppressLint("MissingPermission")
     private fun requestNewLocationData() {
 
@@ -174,33 +174,19 @@ class MainActivity : AppCompatActivity(), LocationAdapter {
         )
     }
 
+    @SuppressLint("MissingPermission")
     private fun checkUserPermissions() {
-        if (ActivityCompat
-                .checkSelfPermission(
-                    this,
-                    android.Manifest
-                        .permission.ACCESS_FINE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED
-            && ActivityCompat
-                .checkSelfPermission(
-                    this,
-                    android.Manifest
-                        .permission.ACCESS_COARSE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED
-            && ActivityCompat
-                .checkSelfPermission(
-                    this,
-                    android.Manifest
-                        .permission.ACCESS_BACKGROUND_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED
-        ) {
+        val hasPermission = isPermissionGranted(android.Manifest.permission.ACCESS_FINE_LOCATION)
+            && isPermissionGranted(android.Manifest.permission.ACCESS_COARSE_LOCATION)
+            && isPermissionGranted(android.Manifest.permission.ACCESS_BACKGROUND_LOCATION)
+        if (!hasPermission) {
             askUserForPermissions()
         } else {
             locationManager.requestLocationUpdates(
                 LocationManager.GPS_PROVIDER,
                 TIME_TO_NEW_LOCATION_MS,
                 DISTANCE_TO_NEW_LOCATION_M,
-                myLocationListener
+                this
             )
         }
     }

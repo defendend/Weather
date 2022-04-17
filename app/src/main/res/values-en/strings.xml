@@ -38,4 +38,42 @@
     <string name="today_text_daily">Today</string>
     <string name="feels_like_title">feels like</string>
 
+    <!-- wind directions -->
+    <string name="north">North</string>
+    <string name="north_northeast">North, Northeast</string>
+    <string name="northeast">Northeast</string>
+    <string name="east_northeast">East, Northeast</string>
+    <string name="eastern">Eastern</string>
+    <string name="eastern_southeastern">Eastern, Southeastern</string>
+    <string name="southeastern">Southeastern</string>
+    <string name="south_south_east">South, South-east</string>
+    <string name="south">South</string>
+    <string name="south_southwest">South, Southwest</string>
+    <string name="southwest">Southwest</string>
+    <string name="west_southwest">West, Southwest</string>
+    <string name="west">West</string>
+    <string name="western_north_western">Western, North-western</string>
+    <string name="northwest">Northwest</string>
+    <string name="north_north_west">North, North-west</string>
+    <string name="empty_string" />
+
+    <!-- feels description -->
+
+    <string name="feels_cold">It feels colder because of the wind.</string>
+    <string name="feels_cooler">Feels cooler because of the wind.</string>
+    <string name="feels_hotter">It feels hotter because of the lack of wind.</string>
+    <string name="feels_same">It feels about the same.</string>
+
+    <!-- uv index -->
+    <string name="low">Low</string>
+    <string name="moderate">Moderate</string>
+    <string name="high">High</string>
+    <string name="very_high">Very high</string>
+    <string name="excessive">Excessive</string>
+    <string name="not_determined">Not determined</string>
+
+    <!-- uv index level -->
+    <string name="not_changed_lvl">Stay %s for the rest of the day.</string>
+    <string name="during_in_day">During the day will become: %s.</string>
+    <string name="decrease_in_day">By the end of the day will decrease to: %s.</string>
 </resources>
