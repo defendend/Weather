@@ -20,7 +20,7 @@ sealed class WeatherState : UiState {
         val description: String,
         val minTemp: Int,
         val maxTemp: Int,
-        val tomorrowInfo: Pair<Pair<Boolean, Boolean>, Int>,
+        val tomorrowInfo: Triple<Boolean, Boolean, Int>,
         val hourly: List<Hourly>,
         val daily: List<Daily>,
         val uvIndex: String,

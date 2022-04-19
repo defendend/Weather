@@ -48,7 +48,7 @@ class WeatherViewModel @Inject constructor(
     }
 
     private suspend fun updateWeather(lat: Double, lon: Double) {
-        val weather = getCurrentWeather(lat = lat, lon = lon)
+        getCurrentWeather(lat = lat, lon = lon)
             .flatMap { weather ->
                 getCurrentCityName(lat = lat, lon = lon)
                     .map { weather to it }
@@ -62,8 +62,6 @@ class WeatherViewModel @Inject constructor(
             }.onFailure {
 
             }
-
-
     }
 
     private fun createNewState(
@@ -74,16 +72,10 @@ class WeatherViewModel @Inject constructor(
         val firstCity = cityName.firstOrNull()
         val name = firstCity?.name.orEmpty()
 
-        val currentCity = when (localTag) {
-            "ru" -> {
-                firstCity?.localNames?.ru ?: name
-            }
-            "en" -> {
-                firstCity?.localNames?.en ?: name
-            }
-            else -> {
-                firstCity?.localNames?.en ?: name
-            }
+        val currentCity = if (localTag == "ru") {
+            firstCity?.localNames?.ru ?: name
+        } else {
+            firstCity?.localNames?.en ?: name
         }
 
         val currentWeather = weather.current
@@ -267,9 +259,9 @@ class WeatherViewModel @Inject constructor(
 
     }
 
-    private fun isTempTomorrowGrow(daily: List<Daily>): Pair<Pair<Boolean, Boolean>, Int> {
+    private fun isTempTomorrowGrow(daily: List<Daily>): Triple<Boolean, Boolean, Int> {
         if (daily.isEmpty()) {
-            return (false to false) to -1
+            return Triple(first = false, second = false, third = -1)
         }
         val maxTemp = daily.firstOrNull()?.temp?.max?.roundToInt() ?: 0
 
@@ -292,7 +284,7 @@ class WeatherViewModel @Inject constructor(
                 }
             }
 
-        return (isTempNotChanged to isTempGrowTomorrow) to maxTempTomorrow
+        return  Triple(first = isTempNotChanged, second = isTempGrowTomorrow, third =  maxTempTomorrow)
     }
 
     private suspend fun getCurrentCityName(lat: Double, lon: Double): Result<CityNameResponse> {
