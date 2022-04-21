@@ -160,6 +160,7 @@
                         android:text="@string/seven_days_weather_text"
                         android:textAllCaps="true"
                         android:textSize="@dimen/card_view_title_text_size_normal"
+                        android:drawablePadding="@dimen/small_space"
                         app:drawableStartCompat="@drawable/ic_thermostat"/>
                 </LinearLayout>
 
@@ -210,6 +211,7 @@
                         android:text="@string/uvi_text_title"
                         android:textAllCaps="true"
                         android:textSize="@dimen/card_view_title_text_size_normal"
+                        android:drawablePadding="@dimen/small_space"
                         app:drawableStartCompat="@drawable/ic_sun"/>
                 </LinearLayout>
 
@@ -264,6 +266,8 @@
                         android:text="@string/sunrise_text_title"
                         android:textAllCaps="true"
                         android:textSize="@dimen/sunrise_title_size"
+                        android:gravity="bottom"
+                        android:drawablePadding="@dimen/small_space"
                         app:drawableStartCompat="@drawable/ic_sunrise"/>
                 </LinearLayout>
 
@@ -314,6 +318,7 @@
                         android:text="@string/wind_text_title"
                         android:textAllCaps="true"
                         android:textSize="@dimen/card_view_title_text_size_normal"
+                        android:drawablePadding="@dimen/small_space"
                         app:drawableStartCompat="@drawable/ic_wind"/>
                 </LinearLayout>
 
@@ -377,6 +382,7 @@
                         android:text="@string/precipitation_text_title"
                         android:textAllCaps="true"
                         android:textSize="@dimen/precipitation_title_size"
+                        android:drawablePadding="@dimen/small_space"
                         app:drawableStartCompat="@drawable/ic_precipitation"/>
                 </LinearLayout>
 
@@ -433,6 +439,7 @@
                         android:text="@string/feels_like_title"
                         android:textAllCaps="true"
                         android:textSize="@dimen/feels_like_title_size"
+                        android:drawablePadding="@dimen/small_space"
                         app:drawableStartCompat="@drawable/ic_thermostat"/>
                 </LinearLayout>
 
@@ -482,6 +489,7 @@
                         android:text="@string/pressure_title"
                         android:textAllCaps="true"
                         android:textSize="@dimen/card_view_title_text_size_normal"
+                        android:drawablePadding="@dimen/small_space"
                         app:drawableStartCompat="@drawable/ic_pressure"/>
                 </LinearLayout>
 
@@ -525,6 +533,7 @@
                         android:text="@string/humidity_title"
                         android:textAllCaps="true"
                         android:textSize="@dimen/card_view_title_text_size_normal"
+                        android:drawablePadding="@dimen/small_space"
                         app:drawableStartCompat="@drawable/ic_humidity"/>
                 </LinearLayout>
 
@@ -577,6 +586,7 @@
                         android:text="@string/visibility_title"
                         android:textAllCaps="true"
                         android:textSize="@dimen/card_view_title_text_size_normal"
+                        android:drawablePadding="@dimen/small_space"
                         app:drawableStartCompat="@drawable/ic_visibility"/>
                 </LinearLayout>
 
