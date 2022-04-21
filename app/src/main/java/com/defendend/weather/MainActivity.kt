@@ -26,6 +26,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import android.location.LocationListener
+import com.defendend.weather.repository.WeatherRepository
 
 
 private const val TAG = "JsonWeather"

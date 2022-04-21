@@ -1,7 +1,11 @@
-package com.defendend.weather.ui.base
+package com.defendend.weather.ui.weather
 
 import com.defendend.weather.models.weather.Daily
 import com.defendend.weather.models.weather.Hourly
+import com.defendend.weather.models.weather.LocationWeather
+import com.defendend.weather.ui.base.UiEffect
+import com.defendend.weather.ui.base.UiEvent
+import com.defendend.weather.ui.base.UiState
 
 
 sealed class WeatherEvent : UiEvent {
@@ -39,6 +43,37 @@ sealed class WeatherState : UiState {
         val dewPoint: String,
         val visibility: Int
     ) : WeatherState()
+
+    companion object {
+        fun createFrom(weather: LocationWeather) : Data{
+            return Data(
+                currentCity = weather.currentCity,
+                currentTemperature = weather.currentTemperature,
+                description = weather.description,
+                minTemp = weather.minTemp,
+                maxTemp = weather.maxTemp,
+                tomorrowInfo = weather.tomorrowInfo,
+                hourly = weather.hourly,
+                daily = weather.daily,
+                uvIndex = weather.uvIndex,
+                uvIndexLevel = weather.uvIndexLevel,
+                uvIndexDescription = weather.uvIndexDescription,
+                sunrise = weather.sunrise,
+                sunset = weather.sunset,
+                windSpeed = weather.windSpeed,
+                windGust = weather.windGust,
+                windDirection = weather.windDirection,
+                precipitation = weather.precipitation,
+                feelsLike = weather.feelsLike,
+                feelsLikeDescription = weather.feelsLikeDescription,
+                pressureMm = weather.pressureMm,
+                humidity = weather.humidity,
+                dewPoint = weather.dewPoint,
+                visibility = weather.humidity
+            )
+        }
+    }
+
 }
 
 sealed class WeatherEffect : UiEffect {

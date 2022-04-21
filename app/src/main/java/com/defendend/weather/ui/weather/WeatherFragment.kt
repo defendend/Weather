@@ -11,7 +11,6 @@ import com.defendend.weather.R
 import com.defendend.weather.databinding.FragmentWeatherBinding
 import com.defendend.weather.models.weather.Daily
 import com.defendend.weather.models.weather.Hourly
-import com.defendend.weather.ui.base.WeatherState
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -26,8 +25,8 @@ class WeatherFragment : Fragment(R.layout.fragment_weather) {
 
     private val viewModel: WeatherViewModel by viewModels()
 
-    private var adapterHourly: WeatherHourlyAdapter? = WeatherHourlyAdapter(emptyList())
-    private var adapterDaily: WeatherDailyAdapter? = WeatherDailyAdapter(emptyList())
+    private var adapterHourly: WeatherHourlyAdapter = WeatherHourlyAdapter(emptyList())
+    private var adapterDaily: WeatherDailyAdapter = WeatherDailyAdapter(emptyList())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,14 +80,10 @@ class WeatherFragment : Fragment(R.layout.fragment_weather) {
     private fun showData(data: WeatherState.Data) {
         val (isTempNotChanged, isTempGrow, maxTemp) = data.tomorrowInfo
 
-        val hourlyDescription = if (isTempNotChanged) {
-            getString(R.string.tomorrow_info_not_changed, maxTemp)
-        } else {
-            if (isTempGrow) {
-                getString(R.string.tomorrow_info_grow_true, maxTemp)
-            } else {
-                getString(R.string.tomorrow_info_grow_false, maxTemp)
-            }
+        val hourlyDescription = when {
+            isTempNotChanged -> getString(R.string.tomorrow_info_not_changed, maxTemp)
+            isTempGrow -> getString(R.string.tomorrow_info_grow_true, maxTemp)
+            else -> getString(R.string.tomorrow_info_grow_false, maxTemp)
         }
 
         updateHourly(data.hourly)

@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.ListAdapter
 import com.defendend.weather.R
 import com.defendend.weather.models.weather.Daily
 
-class WeatherDailyAdapter(var daily: List<Daily>) :
+class WeatherDailyAdapter(private val daily: List<Daily>) :
     ListAdapter<Daily, WeatherDailyHolder>(DiffCallbackDaily()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeatherDailyHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_list_daily_weather, parent, false)
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val view = layoutInflater.inflate(R.layout.item_list_daily_weather, parent, false)
 
         return WeatherDailyHolder(view)
     }
