@@ -13,16 +13,16 @@
     <string name="sunset_text">Sunset: %s</string>
     <string name="precipitation_waiting">%d is expected in there blue days.</string>
     <string name="precipitation_mm">%s mm</string>
-    <string name="wind_gust">Gusts of wind:</string>
+    <string name="wind_gust">Gusts of wind: %s</string>
     <string name="wind_gust_value">Up to %d m/s</string>
     <string name="wind_speed">%d m/s</string>
     <string name="pressure_title">pressure</string>
     <string name="pressure_mm">%s mmHg</string>
     <string name="humidity_title">humidity</string>
     <string name="visibility_title">visibility</string>
-    <string name="humidity_text_card_view">%d %%</string>
+    <string name="humidity_text_card_view">%s %%</string>
     <string name="dew_point_text">Dew point now: %s°</string>
-    <string name="visibility_distance">%d km</string>
+    <string name="visibility_distance">%s km</string>
 
     <!-- load -->
     <string name="load_text">—.—</string>

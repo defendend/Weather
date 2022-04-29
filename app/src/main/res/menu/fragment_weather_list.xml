@@ -6,7 +6,7 @@
         android:id="@+id/newWeaherCity"
         android:icon="@drawable/ic_add_menu"
         android:title="Add city"
-        app:showAsAction="ifRoom|withText"/>
+        app:showAsAction="ifRoom|withText" />
 
 
 </menu>

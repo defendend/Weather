@@ -19,7 +19,7 @@
     <string name="precipitation_last_day">в течении дня</string>
     <string name="precipitation_waiting">%d mm ожидается в течении суток.</string>
     <string name="precipitation_mm">%s мм</string>
-    <string name="wind_gust">Порывы ветра:</string>
+    <string name="wind_gust">Порывы ветра: %s</string>
     <string name="wind_gust_value">До %d м/с</string>
     <string name="wind_speed">%d м/с</string>
     <string name="today_text_daily">Сегодня</string>
@@ -28,14 +28,16 @@
     <string name="pressure_mm">%s мм рт. ст.</string>
     <string name="humidity_title">влажность</string>
     <string name="visibility_title">видимость</string>
-    <string name="humidity_text_card_view">%d %%</string>
+    <string name="humidity_text_card_view">%s %%</string>
     <string name="dew_point_text">Точка росы сейчас: %s°</string>
-    <string name="visibility_distance">%d км</string>
+    <string name="visibility_distance">%s км</string>
 
     <!-- load -->
     <string name="load_text">—.—</string>
     <string name="min_max_temperature_load">Макс.:,мин.:</string>
     <string name="tomorrow_info_grow_load">Ожидаем информацию о погоде завтра…</string>
+
+    <string name="temperature_feels_like" translatable="false">%s°</string>
 
     <!-- wind directions -->
 

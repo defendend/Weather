@@ -10,13 +10,13 @@ data class CityNameResponseItem(
     @SerialName("country")
     val country: String? = null,
     @SerialName("lat")
-    val lat: Double ? = null,
+    val lat: Double? = null,
     @SerialName("local_names")
     val localNames: LocalNames? = null,
     @SerialName("lon")
-    val lon: Double ? = null,
+    val lon: Double? = null,
     @SerialName("name")
-    val name: String ? = null,
+    val name: String? = null,
     @SerialName("state")
     val state: String? = null
 )

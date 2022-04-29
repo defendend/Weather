@@ -9,12 +9,16 @@
 
 
 
+    <dimen name="auto_size_step_granularity">1sp</dimen>
+
     <dimen name="card_view_rectangle_radius">16dp</dimen>
     <dimen name="title_text_size">24sp</dimen>
     <dimen name="hourly_temperature_info_text_size">18sp</dimen>
+    <dimen name="card_view_title_text_size_small">12sp</dimen>
     <dimen name="card_view_title_text_size_normal">18sp</dimen>
     <dimen name="sunrise_title_size">12sp</dimen>
     <dimen name="card_view_text_size_normal">18sp</dimen>
+    <dimen name="card_view_text_size_small">15sp</dimen>
     <dimen name="card_view_value_size">24sp</dimen>
     <dimen name="card_view_value_big_size">32sp</dimen>
     <dimen name="precipitation_title_size">18sp</dimen>

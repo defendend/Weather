@@ -3,10 +3,7 @@ package com.defendend.weather.repository
 import com.defendend.weather.R
 import com.defendend.weather.api.WeatherApi
 import com.defendend.weather.models.city.CityNameResponse
-import com.defendend.weather.models.weather.Daily
-import com.defendend.weather.models.weather.Hourly
-import com.defendend.weather.models.weather.LocationWeather
-import com.defendend.weather.models.weather.WeatherResponseWrapper
+import com.defendend.weather.models.weather.*
 import kotlinx.coroutines.CancellationException
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -69,15 +66,23 @@ class WeatherRepository @Inject constructor(
 
         val snow = currentDay?.snow ?: 0.0
         val rain = currentDay?.rain ?: 0.0
-        val precipitation = (snow + rain).toString()
+        var precipitation = (snow + rain).toString()
+        if (precipitation.length > 4) {
+            precipitation = precipitation.substring(0, 4)
+        }
 
         val uvIndexDescription = getUvIndexDescription(
             uvIndex = uvIndex,
             hourly = hourly
         )
 
+        val dateFormat: DateFormat = SimpleDateFormat("H:mm")
+        dateFormat.timeZone = TimeZone.getDefault()
+
         val sunrise = currentWeather?.sunrise?.times(1000) ?: 0
+        val sunriseTime = dateFormat.format(Date(sunrise))
         val sunset = currentWeather?.sunset?.times(1000) ?: 0
+        val sunsetTime = dateFormat.format(Date(sunset))
 
         val windSpeed = currentWeather?.windSpeed?.roundToInt() ?: 0
         val windGust = currentDay?.windGust?.roundToInt() ?: 0
@@ -95,9 +100,95 @@ class WeatherRepository @Inject constructor(
         val pressureMm = (1.0 * pressure * 0.750064).roundToInt().toString()
 
         val humidity = currentWeather?.humidity ?: 0
-        val dewPoint = currentWeather?.dew_point ?: 0.0
+        var dewPoint = currentWeather?.dew_point.toString()
+
+        if (dewPoint.length > 5) {
+            dewPoint = dewPoint.substring(0, 5)
+        }
 
         val visibilityDistance = currentWeather?.visibility?.div(1000) ?: 0
+
+        val uvIndexCard = TileItem.UvIndex(
+            R.drawable.ic_sun,
+            R.string.uvi_text_title,
+            uvIndex.toString(),
+            uvIndexLevel,
+            uvIndexDescription
+        )
+
+        val windCard = TileItem.Wind(
+            R.drawable.ic_wind,
+            R.string.wind_text_title,
+            windSpeed,
+            R.string.wind_speed,
+            windDirection,
+            R.string.wind_gust,
+            R.string.wind_gust_value,
+            windGust
+        )
+
+        val sunriseCard = TileItem.BasicItem(
+            R.drawable.ic_sunrise,
+            R.string.sunrise_text_title,
+            sunriseTime,
+            null,
+            R.string.sunset_text,
+            sunsetTime
+        )
+
+        val precipitationCard = TileItem.BasicItem(
+            R.drawable.ic_precipitation,
+            R.string.precipitation_text_title,
+            precipitation,
+            R.string.precipitation_mm,
+            R.string.precipitation_last_day
+        )
+
+        val feelsLikeCard = TileItem.BasicItem(
+            R.drawable.ic_thermostat,
+            R.string.feels_like_title,
+            feelsLike.toString(),
+            R.string.temperature_feels_like,
+            feelsLikeDescription
+        )
+
+        val pressureCard = TileItem.BasicItem(
+            R.drawable.ic_pressure,
+            R.string.pressure_title,
+            pressureMm,
+            R.string.pressure_mm
+        )
+
+        val humidityCard = TileItem.BasicItem(
+            R.drawable.ic_humidity,
+            R.string.humidity_title,
+            humidity.toString(),
+            R.string.humidity_text_card_view,
+            R.string.dew_point_text,
+            dewPoint
+        )
+
+        val visibilityCard = TileItem.BasicItem(
+            R.drawable.ic_visibility,
+            R.string.visibility_title,
+            visibilityDistance.toString(),
+            R.string.visibility_distance
+        )
+
+
+        val cardItems = mutableListOf<TileItem>()
+        cardItems.add(uvIndexCard)
+        cardItems.add(windCard)
+
+        cardItems.add(sunriseCard)
+        cardItems.add(precipitationCard)
+
+        cardItems.add(feelsLikeCard)
+        cardItems.add(pressureCard)
+
+        cardItems.add(humidityCard)
+        cardItems.add(visibilityCard)
+
 
 
         return LocationWeather(
@@ -109,21 +200,7 @@ class WeatherRepository @Inject constructor(
             tomorrowInfo = tomorrowInfo,
             hourly = hourly,
             daily = daily,
-            uvIndex = uvIndex.toString(),
-            uvIndexLevel = uvIndexLevel,
-            uvIndexDescription = uvIndexDescription,
-            sunrise = sunrise,
-            sunset = sunset,
-            windSpeed = windSpeed,
-            windGust = windGust,
-            windDirection = windDirection,
-            precipitation = precipitation,
-            feelsLike = feelsLike.toString(),
-            feelsLikeDescription = feelsLikeDescription,
-            pressureMm = pressureMm,
-            humidity = humidity,
-            dewPoint = dewPoint.toString(),
-            visibility = visibilityDistance
+            cardItems = cardItems.toList()
         )
     }
 

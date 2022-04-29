@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
+import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
 import android.os.Looper
@@ -25,8 +26,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import android.location.LocationListener
-import com.defendend.weather.repository.WeatherRepository
 
 
 private const val TAG = "JsonWeather"
@@ -178,8 +177,8 @@ class MainActivity : AppCompatActivity(), LocationListener {
     @SuppressLint("MissingPermission")
     private fun checkUserPermissions() {
         val hasPermission = isPermissionGranted(android.Manifest.permission.ACCESS_FINE_LOCATION)
-            && isPermissionGranted(android.Manifest.permission.ACCESS_COARSE_LOCATION)
-            && isPermissionGranted(android.Manifest.permission.ACCESS_BACKGROUND_LOCATION)
+                && isPermissionGranted(android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                && isPermissionGranted(android.Manifest.permission.ACCESS_BACKGROUND_LOCATION)
         if (!hasPermission) {
             askUserForPermissions()
         } else {

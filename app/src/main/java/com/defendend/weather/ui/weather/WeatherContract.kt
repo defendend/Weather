@@ -3,6 +3,7 @@ package com.defendend.weather.ui.weather
 import com.defendend.weather.models.weather.Daily
 import com.defendend.weather.models.weather.Hourly
 import com.defendend.weather.models.weather.LocationWeather
+import com.defendend.weather.models.weather.TileItem
 import com.defendend.weather.ui.base.UiEffect
 import com.defendend.weather.ui.base.UiEvent
 import com.defendend.weather.ui.base.UiState
@@ -13,6 +14,7 @@ sealed class WeatherEvent : UiEvent {
         val lat: Double,
         val lon: Double
     ) : WeatherEvent()
+
     object ShowWeather : WeatherEvent()
 }
 
@@ -27,25 +29,11 @@ sealed class WeatherState : UiState {
         val tomorrowInfo: Triple<Boolean, Boolean, Int>,
         val hourly: List<Hourly>,
         val daily: List<Daily>,
-        val uvIndex: String,
-        val uvIndexLevel: Int,
-        val uvIndexDescription: Pair<Int,Int>,
-        val sunrise: Long,
-        val sunset: Long,
-        val windSpeed: Int,
-        val windGust: Int,
-        val windDirection: Int,
-        val precipitation: String,
-        val feelsLike: String,
-        val feelsLikeDescription: Int,
-        val pressureMm: String,
-        val humidity: Int,
-        val dewPoint: String,
-        val visibility: Int
+        val cardItems: List<TileItem>
     ) : WeatherState()
 
     companion object {
-        fun createFrom(weather: LocationWeather) : Data{
+        fun createFrom(weather: LocationWeather): Data {
             return Data(
                 currentCity = weather.currentCity,
                 currentTemperature = weather.currentTemperature,
@@ -55,21 +43,7 @@ sealed class WeatherState : UiState {
                 tomorrowInfo = weather.tomorrowInfo,
                 hourly = weather.hourly,
                 daily = weather.daily,
-                uvIndex = weather.uvIndex,
-                uvIndexLevel = weather.uvIndexLevel,
-                uvIndexDescription = weather.uvIndexDescription,
-                sunrise = weather.sunrise,
-                sunset = weather.sunset,
-                windSpeed = weather.windSpeed,
-                windGust = weather.windGust,
-                windDirection = weather.windDirection,
-                precipitation = weather.precipitation,
-                feelsLike = weather.feelsLike,
-                feelsLikeDescription = weather.feelsLikeDescription,
-                pressureMm = weather.pressureMm,
-                humidity = weather.humidity,
-                dewPoint = weather.dewPoint,
-                visibility = weather.humidity
+                cardItems = weather.cardItems
             )
         }
     }

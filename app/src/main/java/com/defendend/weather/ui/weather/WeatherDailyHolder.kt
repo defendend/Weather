@@ -71,12 +71,6 @@ class WeatherDailyHolder(view: View) : RecyclerView.ViewHolder(view) {
             }
 
         }
-
-        val count = bindingAdapter?.itemCount ?: 0
-
-        if (bindingAdapterPosition == count - 1) {
-            bindingDaily.view.visibility = View.GONE
-        }
     }
 
     private fun setWeatherIcons(weather: List<WeatherX>) {
