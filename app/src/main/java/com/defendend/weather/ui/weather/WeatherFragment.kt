@@ -99,13 +99,21 @@ class WeatherFragment : Fragment(R.layout.fragment_weather) {
         updateDaily(data.daily)
         updateCardItems(data.cardItems)
 
+        val (isTempNotChanged, isTempGrow, maxTempTomorrow) = data.tomorrowInfo
+
+        val tomorrowInfo = when {
+            isTempNotChanged -> getString(R.string.tomorrow_info_not_changed, maxTempTomorrow)
+            isTempGrow -> getString(R.string.tomorrow_info_grow_true, maxTempTomorrow)
+            else -> getString(R.string.tomorrow_info_grow_false, maxTempTomorrow)
+        }
+
         binding.apply {
             cityName.text = data.currentCity
             currentTemperature.text = getString(R.string.temperature_rec, data.currentTemperature)
             descriptionTextView.text = data.description
             maxMinTemperature.text =
                 getString(R.string.min_max_temperature, data.maxTemp, data.minTemp)
-            hourlyTempDescription.text = getString(R.string.tomorrow_info_grow_load)
+            hourlyTempDescription.text = tomorrowInfo
         }
     }
 
