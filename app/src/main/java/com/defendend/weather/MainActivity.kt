@@ -18,7 +18,7 @@ import com.defendend.weather.MainActivity.LocationConstants.DISTANCE_TO_NEW_LOCA
 import com.defendend.weather.MainActivity.LocationConstants.REQUEST_CODE_GPS
 import com.defendend.weather.MainActivity.LocationConstants.TIME_TO_NEW_LOCATION_MS
 import com.defendend.weather.location.LocationProvider
-import com.defendend.weather.ui.weather.WeatherFragment
+import com.defendend.weather.ui.weather_list.WeatherListFragment
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.OnCompleteListener
 import dagger.hilt.android.AndroidEntryPoint
@@ -48,6 +48,7 @@ class MainActivity : AppCompatActivity(), LocationListener {
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
         checkUserPermissions()
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
@@ -55,7 +56,7 @@ class MainActivity : AppCompatActivity(), LocationListener {
         val currentFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentContainer)
         if (currentFragment == null) {
-            val fragment = WeatherFragment.newInstance()
+            val fragment = WeatherListFragment.newInstance()
             supportFragmentManager
                 .beginTransaction()
                 .add(R.id.fragmentContainer, fragment)
@@ -163,7 +164,9 @@ class MainActivity : AppCompatActivity(), LocationListener {
     private val mLocationCallback: LocationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
             val mLastLocation = locationResult.lastLocation
-            locationProvider.setLocation(mLastLocation.latitude to mLastLocation.longitude)
+            if (mLastLocation != null) {
+                locationProvider.setLocation(mLastLocation.latitude to mLastLocation.longitude)
+            }
         }
     }
 

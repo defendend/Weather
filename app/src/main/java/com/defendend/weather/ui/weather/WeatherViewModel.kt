@@ -4,6 +4,7 @@ import com.defendend.weather.location.LocationProvider
 import com.defendend.weather.models.weather.LocationWeather
 import com.defendend.weather.repository.WeatherRepository
 import com.defendend.weather.ui.base.BaseViewModel
+import com.defendend.weather.ui.base.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -18,6 +19,24 @@ class WeatherViewModel @Inject constructor(
     init {
         safeIoLaunch {
             observeLocation()
+        }
+    }
+
+    override suspend fun handleEvent(event: UiEvent) {
+        when (event) {
+            is WeatherEvent.Refresh -> refreshWeather()
+        }
+    }
+
+    private suspend fun refreshWeather() {
+        val coordinates = locationProvider.takeCurrentCoordinates()
+        if (coordinates != null) {
+            postState(WeatherState.Loading)
+            val (lat, lon) = coordinates
+            updateWeather(
+                lat = lat,
+                lon = lon
+            )
         }
     }
 
@@ -41,6 +60,7 @@ class WeatherViewModel @Inject constructor(
             val state = createNewState(locationWeather = it)
             postState(state)
         }.onFailure {
+            println(it)
         }
     }
 

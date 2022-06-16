@@ -43,18 +43,18 @@ android {
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.7.0")
-    implementation("androidx.appcompat:appcompat:1.4.1")
-    implementation("com.google.android.material:material:1.5.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.3")
+    implementation("androidx.core:core-ktx:1.8.0")
+    implementation("androidx.appcompat:appcompat:1.4.2")
+    implementation("com.google.android.material:material:1.6.1")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.0-alpha06")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.0-rc01")
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("androidx.preference:preference-ktx:1.2.0")
 
     implementation("androidx.fragment:fragment-ktx:1.4.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.1")
     implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0")
 
     implementation("com.squareup.okhttp3:okhttp:4.9.3")
@@ -64,10 +64,15 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1")
     implementation("androidx.cardview:cardview:1.0.0")
 
+    implementation("androidx.viewpager2:viewpager2:1.1.0-beta01")
+    implementation("me.relex:circleindicator:2.1.6")
+
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+
     annotationProcessor("androidx.room:room-compiler:2.4.2")
     kapt("androidx.room:room-compiler:2.4.2")
 
-    implementation("com.google.android.gms:play-services-location:19.0.1")
+    implementation("com.google.android.gms:play-services-location:20.0.0")
 
     implementation("com.google.dagger:hilt-android:2.41")
     kapt("com.google.dagger:hilt-compiler:2.41")

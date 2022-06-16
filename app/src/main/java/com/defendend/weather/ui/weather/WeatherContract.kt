@@ -10,12 +10,7 @@ import com.defendend.weather.ui.base.UiState
 
 
 sealed class WeatherEvent : UiEvent {
-    data class Refresh(
-        val lat: Double,
-        val lon: Double
-    ) : WeatherEvent()
-
-    object ShowWeather : WeatherEvent()
+    object Refresh : WeatherEvent()
 }
 
 sealed class WeatherState : UiState {

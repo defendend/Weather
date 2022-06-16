@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +18,7 @@ import com.defendend.weather.models.weather.Daily
 import com.defendend.weather.models.weather.Hourly
 import com.defendend.weather.models.weather.TileItem
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -30,13 +33,6 @@ class WeatherFragment : Fragment(R.layout.fragment_weather) {
     private var adapterHourly: WeatherHourlyAdapter = WeatherHourlyAdapter(emptyList())
     private var adapterDaily: WeatherDailyAdapter = WeatherDailyAdapter(emptyList())
     private var adapterCardItems: WeatherCardItemAdapter = WeatherCardItemAdapter(emptyList())
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        lifecycleScope.launchWhenResumed {
-            viewModel.state.collect(::handleState)
-        }
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,9 +50,17 @@ class WeatherFragment : Fragment(R.layout.fragment_weather) {
 
             cardItemRecyclerView.apply {
                 layoutManager = GridLayoutManager(context, 2)
-                val spacingInPixels = resources.getDimensionPixelSize(R.dimen.normal_space)
-                addItemDecoration(GridSpacingItemDecoration(2, spacingInPixels, 0))
                 adapter = adapterCardItems
+            }
+            refresher.setOnRefreshListener {
+                viewModel.postEvent(WeatherEvent.Refresh)
+            }
+            refresher.setDistanceToTriggerSync(500)
+        }
+
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                viewModel.state.collect(::handleState)
             }
         }
     }
@@ -90,8 +94,11 @@ class WeatherFragment : Fragment(R.layout.fragment_weather) {
             descriptionTextView.text = getString(R.string.load_text)
             maxMinTemperature.text = getString(R.string.min_max_temperature_load)
             hourlyTempDescription.text = getString(R.string.tomorrow_info_grow_load)
+            updateHourly(emptyList())
+            updateDaily(emptyList())
+            updateCardItems(emptyList())
+            refresher.isRefreshing = true
         }
-
     }
 
     private fun showData(data: WeatherState.Data) {
@@ -114,6 +121,7 @@ class WeatherFragment : Fragment(R.layout.fragment_weather) {
             maxMinTemperature.text =
                 getString(R.string.min_max_temperature, data.maxTemp, data.minTemp)
             hourlyTempDescription.text = tomorrowInfo
+            refresher.isRefreshing = false
         }
     }
 
