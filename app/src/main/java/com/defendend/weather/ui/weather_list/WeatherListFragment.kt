@@ -9,7 +9,9 @@ import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.defendend.weather.R
 import com.defendend.weather.databinding.FragmentWeatherListBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class WeatherListFragment : Fragment() {
 
     private val binding by viewBinding(FragmentWeatherListBinding::bind)
