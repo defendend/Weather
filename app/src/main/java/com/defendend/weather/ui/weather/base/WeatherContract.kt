@@ -1,4 +1,4 @@
-package com.defendend.weather.ui.weather
+package com.defendend.weather.ui.weather.base
 
 import com.defendend.weather.models.weather.Daily
 import com.defendend.weather.models.weather.Hourly
@@ -11,6 +11,9 @@ import com.defendend.weather.ui.base.UiState
 
 sealed class WeatherEvent : UiEvent {
     object Refresh : WeatherEvent()
+    data class CityParameter(
+        val name: String
+    ) : WeatherEvent()
 }
 
 sealed class WeatherState : UiState {

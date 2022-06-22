@@ -1,138 +1,128 @@
-package com.defendend.weather.ui.weather
+package com.defendend.weather.ui.weather.base
 
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.defendend.weather.R
-import com.defendend.weather.databinding.ItemListDailyWeatherBinding
-import com.defendend.weather.models.weather.Daily
-import com.defendend.weather.models.weather.WeatherX
+import com.defendend.weather.databinding.ListItemHourlyWeatherBinding
+import com.defendend.weather.models.weather.Hourly
+import com.defendend.weather.models.weather.WeatherXX
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.roundToInt
 
-class WeatherDailyHolder(view: View) : RecyclerView.ViewHolder(view) {
+class WeatherHourlyHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     private val context = view.context
-    private lateinit var daily: Daily
+    private lateinit var hourly: Hourly
 
-    private val bindingDaily: ItemListDailyWeatherBinding by viewBinding(
-        ItemListDailyWeatherBinding::bind
+    private val bindingHourly: ListItemHourlyWeatherBinding by viewBinding(
+        ListItemHourlyWeatherBinding::bind
     )
 
-    fun bind(daily: Daily) {
-        this.daily = daily
+    fun bind(hourly: Hourly) {
+        this.hourly = hourly
 
-        val timestamp = (this.daily.dt)?.times(1000) ?: 0
 
-        val dateFormat: DateFormat = SimpleDateFormat("E")
+        val temperature = this.hourly.temp?.roundToInt().toString()
+        val timeStamp = (this.hourly.dt)?.times(1000L) ?: 0
+
+        val dateFormat: DateFormat = SimpleDateFormat("HH")
         dateFormat.timeZone = TimeZone.getDefault()
 
-        val day = dateFormat.format(Date(timestamp))
+        val hour = dateFormat.format(Date(timeStamp))
 
-        val minTemperature = this.daily.temp?.min?.roundToInt().toString()
-        val maxTemperature = this.daily.temp?.max?.roundToInt().toString()
-        val humidity = this.daily.humidity ?: 0
-
-        val weathers = daily.weather.orEmpty()
+        val weathers = hourly.weather.orEmpty()
 
         if (bindingAdapterPosition != 0) {
-
-            bindingDaily.apply {
-                dayOfWeekTextView.text = day
-
-                humidityTextView.text = context.getString(R.string.humidity_text, humidity)
-
-                minTemp.text = context.getString(
+            bindingHourly.apply {
+                tempTextView.text = context.getString(
                     R.string.temp_text_horizontal_recycler,
-                    minTemperature
+                    temperature
                 )
-                maxTemp.text =
-                    context.getString(R.string.temp_text_horizontal_recycler, maxTemperature)
+
+                weatherHourTextView.text = hour
 
                 setWeatherIcons(weathers)
             }
 
         } else {
-            bindingDaily.apply {
-                humidityTextView.text = context.getString(R.string.humidity_text, humidity)
-
-                bindingDaily.dayOfWeekTextView.text = context.getString(R.string.today_text_daily)
-
-                minTemp.text =
-                    context.getString(R.string.temp_text_horizontal_recycler, minTemperature)
-
-                maxTemp.text =
-                    context.getString(R.string.temp_text_horizontal_recycler, maxTemperature)
-
-                setWeatherIcons(weathers)
+            setWeatherIcons(weathers)
+            bindingHourly.apply {
+                tempTextView.text = context.getString(
+                    R.string.temp_text_horizontal_recycler,
+                    temperature
+                )
+                weatherHourTextView.text = context.getString(R.string.item_temp_now)
             }
+
 
         }
     }
 
-    private fun setWeatherIcons(weather: List<WeatherX>) {
+    private fun setWeatherIcons(weather: List<WeatherXX>) {
         val hourWeather = weather.firstOrNull()
-        bindingDaily.apply {
+
+        bindingHourly.apply {
             if (hourWeather != null) {
                 when (hourWeather.icon) {
-                    "01d" -> weatherDailyIcon.setImageDrawable(
+                    "01d" -> weatherIcon.setImageDrawable(
                         ContextCompat.getDrawable(
                             context,
                             R.drawable.ic_clear_sky
                         )
                     )
-                    "01n" -> weatherDailyIcon.setImageDrawable(
+                    "01n" -> weatherIcon.setImageDrawable(
                         ContextCompat.getDrawable(
                             context,
                             R.drawable.ic_moon
                         )
                     )
-                    "02d" -> weatherDailyIcon.setImageDrawable(
+                    "02d" -> weatherIcon.setImageDrawable(
                         ContextCompat.getDrawable(
                             context,
                             R.drawable.ic_few_clouds
                         )
                     )
-                    "02n" -> weatherDailyIcon.setImageDrawable(
+                    "02n" -> weatherIcon.setImageDrawable(
                         ContextCompat.getDrawable(
                             context,
                             R.drawable.ic_moon_clouds
                         )
                     )
-                    "03d", "03n" -> weatherDailyIcon.setImageDrawable(
+                    "03d", "03n" -> weatherIcon.setImageDrawable(
                         ContextCompat.getDrawable(
                             context,
                             R.drawable.ic_clouds
                         )
                     )
-                    "04d", "04n" -> weatherDailyIcon.setImageDrawable(
+                    "04d", "04n" -> weatherIcon.setImageDrawable(
                         ContextCompat.getDrawable(
                             context,
                             R.drawable.ic_broken_clouds
                         )
                     )
-                    "09d", "09n" -> weatherDailyIcon.setImageDrawable(
+                    "09d", "09n" -> weatherIcon.setImageDrawable(
                         ContextCompat.getDrawable(
                             context,
                             R.drawable.ic_snower_rain
                         )
                     )
-                    "10d", "10n" -> weatherDailyIcon.setImageDrawable(
+                    "10d", "10n" -> weatherIcon.setImageDrawable(
                         ContextCompat.getDrawable(
                             context,
                             R.drawable.ic_rain
                         )
                     )
-                    "11d", "11n" -> weatherDailyIcon.setImageDrawable(
+                    "11d", "11n" -> weatherIcon.setImageDrawable(
                         ContextCompat.getDrawable(
                             context,
                             R.drawable.ic_thunderstorm
                         )
                     )
-                    "13d", "13n" -> weatherDailyIcon.setImageDrawable(
+                    "13d", "13n" -> weatherIcon.setImageDrawable(
                         ContextCompat.getDrawable(
                             context,
                             R.drawable.ic_snow

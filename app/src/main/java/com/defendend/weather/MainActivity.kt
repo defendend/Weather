@@ -45,8 +45,6 @@ class MainActivity : AppCompatActivity(), LocationListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        WindowCompat.setDecorFitsSystemWindows(window, false)
-
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
         checkUserPermissions()

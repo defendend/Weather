@@ -1,10 +1,12 @@
-package com.defendend.weather.ui.weather
+package com.defendend.weather.ui.weather.current_location
 
 import com.defendend.weather.location.LocationProvider
 import com.defendend.weather.models.weather.LocationWeather
 import com.defendend.weather.repository.WeatherRepository
-import com.defendend.weather.ui.base.BaseViewModel
 import com.defendend.weather.ui.base.UiEvent
+import com.defendend.weather.ui.weather.base.BaseViewModel
+import com.defendend.weather.ui.weather.base.WeatherEvent
+import com.defendend.weather.ui.weather.base.WeatherState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -52,7 +54,6 @@ class WeatherViewModel @Inject constructor(
     }
 
     private suspend fun updateWeather(lat: Double, lon: Double) {
-
         weatherRepository.getWeather(
             lat = lat,
             lon = lon

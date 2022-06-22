@@ -1,4 +1,4 @@
-package com.defendend.weather.ui.weather
+package com.defendend.weather.ui.weather.base
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.defendend.weather.R
 import com.defendend.weather.models.weather.Hourly
+import com.defendend.weather.ui.weather.base.WeatherHourlyHolder
 
 class WeatherHourlyAdapter(private val hourly: List<Hourly>) :
     ListAdapter<Hourly, WeatherHourlyHolder>(DiffCallbackHourly()) {

@@ -1,9 +1,8 @@
-package com.defendend.weather.ui.weather
+package com.defendend.weather.ui.weather.base
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -17,18 +16,15 @@ import com.defendend.weather.databinding.FragmentWeatherBinding
 import com.defendend.weather.models.weather.Daily
 import com.defendend.weather.models.weather.Hourly
 import com.defendend.weather.models.weather.TileItem
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
-
-@AndroidEntryPoint
-class WeatherFragment : Fragment(R.layout.fragment_weather) {
+abstract class BaseWeatherFragment : Fragment(R.layout.fragment_weather) {
 
     private val binding: FragmentWeatherBinding by viewBinding(
         FragmentWeatherBinding::bind
     )
 
-    private val viewModel: WeatherViewModel by viewModels()
+    protected abstract val viewModel: BaseViewModel<WeatherState>
 
     private var adapterHourly: WeatherHourlyAdapter = WeatherHourlyAdapter(emptyList())
     private var adapterDaily: WeatherDailyAdapter = WeatherDailyAdapter(emptyList())
@@ -41,6 +37,16 @@ class WeatherFragment : Fragment(R.layout.fragment_weather) {
                 orientation = LinearLayoutManager.HORIZONTAL
             }
             hourlyRecyclerView.adapter = adapterHourly
+            hourlyRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+                        refresher.isEnabled = false
+                    }
+                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                        refresher.isEnabled = true
+                    }
+                }
+            })
 
             dailyRecyclerView.layoutManager = LinearLayoutManager(context)
             dailyRecyclerView.adapter = adapterDaily
@@ -71,6 +77,7 @@ class WeatherFragment : Fragment(R.layout.fragment_weather) {
             is WeatherState.Data -> showData(state)
         }
     }
+
 
     private fun updateHourly(hourly: List<Hourly>) {
         adapterHourly = WeatherHourlyAdapter(hourly)
@@ -122,12 +129,6 @@ class WeatherFragment : Fragment(R.layout.fragment_weather) {
                 getString(R.string.min_max_temperature, data.maxTemp, data.minTemp)
             hourlyTempDescription.text = tomorrowInfo
             refresher.isRefreshing = false
-        }
-    }
-
-    companion object {
-        fun newInstance(): WeatherFragment {
-            return WeatherFragment()
         }
     }
 }

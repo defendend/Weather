@@ -1,4 +1,4 @@
-package com.defendend.weather.ui.weather
+package com.defendend.weather.ui.weather.base
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
