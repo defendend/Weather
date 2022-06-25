@@ -1,7 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/settingsContainer"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/settingsContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/top_line"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="24dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/bottom_line"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/start_line"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/end_line"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="16dp" />
+
+    <TextView
+        android:id="@+id/titleSettings"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/title_settings_text"
+        android:textSize="@dimen/settings_title"
+        app:layout_constraintStart_toStartOf="@id/start_line"
+        app:layout_constraintEnd_toEndOf="@id/end_line"
+        app:layout_constraintTop_toTopOf="@id/top_line"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/searchCity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/normal_space"
+        app:cardCornerRadius="@dimen/card_view_rectangle_radius"
+        app:cardElevation="@dimen/card_view_rectangle_radius"
+        app:layout_constraintTop_toBottomOf="@id/titleSettings"
+        app:layout_constraintStart_toStartOf="@id/start_line"
+        app:layout_constraintEnd_toEndOf="@id/end_line"
+        >
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:iconifiedByDefault="false"
+            app:defaultQueryHint="@string/query_hint"
+            app:queryBackground="@android:color/transparent"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chooseCityRecycler"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/searchCity"
+        app:layout_constraintStart_toStartOf="@id/start_line"
+        app:layout_constraintEnd_toEndOf="@id/end_line"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/weatherCardRecycler"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/normal_space"
+        app:layout_constraintTop_toBottomOf="@id/chooseCityRecycler"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</ScrollView>

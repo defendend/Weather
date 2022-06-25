@@ -76,4 +76,9 @@
     <string name="not_changed_lvl">Stay %s for the rest of the day.</string>
     <string name="during_in_day">During the day will become: %s.</string>
     <string name="decrease_in_day">By the end of the day will decrease to: %s.</string>
+
+    <!-- settings fragment -->
+    <string name="query_hint">Enter the name of the city</string>
+    <string name="title_settings_text">Weather</string>
+    <string name="current_location">Current location</string>
 </resources>

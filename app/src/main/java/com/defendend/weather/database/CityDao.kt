@@ -1,9 +1,6 @@
 package com.defendend.weather.database
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.defendend.weather.ui.weather_list.City
 import kotlinx.coroutines.flow.Flow
 
@@ -21,6 +18,9 @@ interface CityDao {
 
     @Insert
     fun addCity(city: City)
+
+    @Update
+    fun updateCity(city: City)
 
     @Delete
     fun deleteCity(city: City)

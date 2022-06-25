@@ -8,7 +8,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:scrollbars="none">
 
         <androidx.constraintlayout.widget.ConstraintLayout
 
@@ -189,14 +190,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/card_view_daily" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="@dimen/big_space"
-                android:layout_marginTop="@dimen/big_space"
-                app:layout_constraintEnd_toStartOf="@id/end_line"
-                app:layout_constraintStart_toEndOf="@id/start_line"
-                app:layout_constraintTop_toBottomOf="@id/card_item_recycler_view" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

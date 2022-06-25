@@ -16,6 +16,7 @@ import com.defendend.weather.databinding.FragmentWeatherBinding
 import com.defendend.weather.models.weather.Daily
 import com.defendend.weather.models.weather.Hourly
 import com.defendend.weather.models.weather.TileItem
+import com.defendend.weather.ui.base.BaseViewModel
 import kotlinx.coroutines.launch
 
 abstract class BaseWeatherFragment : Fragment(R.layout.fragment_weather) {

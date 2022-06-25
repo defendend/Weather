@@ -24,5 +24,6 @@
     <dimen name="precipitation_title_size">18sp</dimen>
     <dimen name="precipitation_value_mm_size">36sp</dimen>
     <dimen name="feels_like_title_size">12sp</dimen>
+    <dimen name="settings_title">28sp</dimen>
 
 </resources>

@@ -1,5 +1,6 @@
 package com.defendend.weather.di
 
+import com.defendend.weather.api.CityApi
 import com.defendend.weather.api.WeatherApi
 import com.defendend.weather.api.WeatherApi.Companion.API_URL
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
@@ -21,13 +22,22 @@ object RetrofitModule {
     private val json = Json { ignoreUnknownKeys = true }
 
     @Provides
-    fun provideRetrofit(): Retrofit = Retrofit.Builder()
-        .addConverterFactory(json.asConverterFactory(contentType = JSON_TYPE.toMediaType()))
-        .baseUrl(API_URL)
-        .build()
+    @Singleton
+    fun provideWeatherApi(): WeatherApi {
+        val retrofit = Retrofit.Builder()
+            .addConverterFactory(json.asConverterFactory(contentType = JSON_TYPE.toMediaType()))
+            .baseUrl(API_URL)
+            .build()
+        return retrofit.create(WeatherApi::class.java)
+    }
 
     @Provides
     @Singleton
-    fun provideWeatherApi(retrofit: Retrofit): WeatherApi = retrofit.create(WeatherApi::class.java)
-
+    fun provideCityApi(): CityApi {
+        val retrofit = Retrofit.Builder()
+            .addConverterFactory(json.asConverterFactory(contentType = JSON_TYPE.toMediaType()))
+            .baseUrl(CityApi.CITY_API_URL)
+            .build()
+        return retrofit.create(CityApi::class.java)
+    }
 }

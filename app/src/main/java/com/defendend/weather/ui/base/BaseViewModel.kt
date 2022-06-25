@@ -1,10 +1,7 @@
-package com.defendend.weather.ui.weather.base
+package com.defendend.weather.ui.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.defendend.weather.ui.base.UiEffect
-import com.defendend.weather.ui.base.UiEvent
-import com.defendend.weather.ui.base.UiState
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*

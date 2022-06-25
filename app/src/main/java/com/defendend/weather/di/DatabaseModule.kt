@@ -19,13 +19,14 @@ class DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideDatabase(@ApplicationContext context: Context) : CityDataBase = Room.databaseBuilder(
+    fun provideDatabase(@ApplicationContext context: Context): CityDataBase = Room.databaseBuilder(
         context,
         CityDataBase::class.java,
         DATABASE_NAME
-    ).build()
+    ).fallbackToDestructiveMigration()
+        .build()
 
     @Provides
     @Singleton
-    fun provideCityDao(cityDataBase: CityDataBase) : CityDao = cityDataBase.cityDao()
+    fun provideCityDao(cityDataBase: CityDataBase): CityDao = cityDataBase.cityDao()
 }

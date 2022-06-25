@@ -1,19 +1,24 @@
 package com.defendend.weather.ui.weather.current_location
 
+import com.defendend.weather.database.CityDao
 import com.defendend.weather.location.LocationProvider
 import com.defendend.weather.models.weather.LocationWeather
 import com.defendend.weather.repository.WeatherRepository
 import com.defendend.weather.ui.base.UiEvent
-import com.defendend.weather.ui.weather.base.BaseViewModel
+import com.defendend.weather.ui.base.BaseViewModel
 import com.defendend.weather.ui.weather.base.WeatherEvent
 import com.defendend.weather.ui.weather.base.WeatherState
+import com.defendend.weather.ui.weather_list.City
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+
+private const val DEFAULT_CITY = "default"
 
 @HiltViewModel
 class WeatherViewModel @Inject constructor(
     private val locationProvider: LocationProvider,
-    private val weatherRepository: WeatherRepository
+    private val weatherRepository: WeatherRepository,
+    private val cityDao: CityDao
 ) : BaseViewModel<WeatherState>() {
 
     override fun createInitialState(): WeatherState = WeatherState.Loading
@@ -34,6 +39,7 @@ class WeatherViewModel @Inject constructor(
         val coordinates = locationProvider.takeCurrentCoordinates()
         if (coordinates != null) {
             postState(WeatherState.Loading)
+
             val (lat, lon) = coordinates
             updateWeather(
                 lat = lat,
@@ -58,6 +64,30 @@ class WeatherViewModel @Inject constructor(
             lat = lat,
             lon = lon
         ).onSuccess {
+            var city = cityDao.getCity(DEFAULT_CITY)
+            if (city == null) {
+                city = City(
+                    DEFAULT_CITY,
+                    it.currentCity,
+                    it.currentTemperature,
+                    DEFAULT_CITY,
+                    it.description,
+                    it.minTemp,
+                    it.maxTemp
+                )
+                cityDao.addCity(city = city)
+            } else {
+                city = City(
+                    DEFAULT_CITY,
+                    it.currentCity,
+                    it.currentTemperature,
+                    DEFAULT_CITY,
+                    it.description,
+                    it.minTemp,
+                    it.maxTemp
+                )
+                cityDao.updateCity(city = city)
+            }
             val state = createNewState(locationWeather = it)
             postState(state)
         }.onFailure {

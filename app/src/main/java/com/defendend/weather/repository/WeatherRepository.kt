@@ -2,6 +2,7 @@ package com.defendend.weather.repository
 
 import com.defendend.weather.R
 import com.defendend.weather.api.WeatherApi
+import com.defendend.weather.api.WeatherApi.Companion.TAG_RU
 import com.defendend.weather.models.city.CityNameResponse
 import com.defendend.weather.models.weather.*
 import kotlinx.coroutines.CancellationException
@@ -40,7 +41,7 @@ class WeatherRepository @Inject constructor(
 
         val firstCity = cityName.firstOrNull()
         val name = firstCity?.name.orEmpty()
-        val currentCity = if (localTag == "ru") {
+        val currentCity = if (localTag == TAG_RU) {
             firstCity?.localNames?.ru ?: name
         } else {
             firstCity?.localNames?.en ?: name

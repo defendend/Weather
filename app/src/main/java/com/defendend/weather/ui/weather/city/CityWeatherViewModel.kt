@@ -2,7 +2,7 @@ package com.defendend.weather.ui.weather.city
 
 import com.defendend.weather.repository.WeatherRepository
 import com.defendend.weather.ui.base.UiEvent
-import com.defendend.weather.ui.weather.base.BaseViewModel
+import com.defendend.weather.ui.base.BaseViewModel
 import com.defendend.weather.ui.weather.base.WeatherEvent
 import com.defendend.weather.ui.weather.base.WeatherState
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -20,6 +20,10 @@ class CityRepository @Inject constructor(private val cityDao: CityDao) {
         cityDao.addCity(city = city)
     }
 
+    fun updateCity(city: City) {
+        cityDao.updateCity(city = city)
+    }
+
     fun deleteCity(city: City) {
         cityDao.deleteCity(city = city)
     }
