@@ -13,10 +13,10 @@ class SettingsNameHolder(view: View) : RecyclerView.ViewHolder(view) {
         SearchCityCardBinding::bind
     )
 
-    fun bind(name: CityUi, onClick: (Int) -> Unit) {
+    fun bind(name: CityUi, onClick: (CityUi) -> Unit) {
         bindingNameHolder.cityName.text = name.name
         bindingNameHolder.root.setOnClickListener {
-            onClick(name.id)
+            onClick(name)
         }
     }
 }

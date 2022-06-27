@@ -8,7 +8,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class CurrentLocationWeatherFragment : BaseWeatherFragment() {
 
-    override val viewModel: WeatherViewModel by viewModels()
+    override val viewModel: CurrentLocationViewModel by viewModels()
 
     companion object {
         fun newInstance(): CurrentLocationWeatherFragment {

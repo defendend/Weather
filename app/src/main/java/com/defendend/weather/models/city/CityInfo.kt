@@ -30,7 +30,7 @@ data class CityInfo(
     @SerialName("longitude")
     val longitude: Double? = null,
     @SerialName("name")
-    val name: String? = null
+    val name: String? = null,
 //    @SerialName("post")
 //    val post: Int? = null,
 //    @SerialName("rajon")
@@ -42,9 +42,9 @@ data class CityInfo(
 //    @SerialName("telcod")
 //    val telcod: Int? = null,
 //    @SerialName("time_zone")
-//    val time_zone: Int? = null,
-//    @SerialName("tz")
-//    val tz: String? = null,
+//    val timeZone: Int? = null,
+    @SerialName("tz")
+    val tz: String? = null
 //    @SerialName("vid")
 //    val vid: Int? = null,
 //    @SerialName("wiki")
@@ -61,7 +61,10 @@ data class CityInfo(
 
         return CityUi(
             id = id ?: 0,
-            name = name
+            name = name,
+            lat = latitude ?: 0.0,
+            lon = longitude ?: 0.0,
+            timeZone = tz.orEmpty()
         )
     }
 }

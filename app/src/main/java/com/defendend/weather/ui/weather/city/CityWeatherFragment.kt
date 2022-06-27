@@ -3,6 +3,7 @@ package com.defendend.weather.ui.weather.city
 import android.os.Bundle
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import com.defendend.weather.models.city.CityUi
 import com.defendend.weather.ui.weather.base.BaseWeatherFragment
 import com.defendend.weather.ui.weather.base.WeatherEvent
 import dagger.hilt.android.AndroidEntryPoint
@@ -15,21 +16,21 @@ class CityWeatherFragment : BaseWeatherFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val cityName = arguments?.getString(CITY_NAME_ARG)
-        if (cityName != null) {
-            val event = WeatherEvent.CityParameter(name = cityName)
+        val city = arguments?.getParcelable<CityUi>(CITY)
+        if (city != null) {
+            val event = WeatherEvent.CityParameter(city = city)
             viewModel.postEvent(event = event)
         } else {
-            throw IllegalArgumentException("City name parameter is null.")
+            throw IllegalArgumentException("City name, lat or lon parameter is null.")
         }
     }
 
     companion object {
-        private const val CITY_NAME_ARG = "cityNameArg"
+        private const val CITY = "city"
 
-        fun newInstance(cityName: String) : CityWeatherFragment{
+        fun newInstance(cityUi: CityUi): CityWeatherFragment {
             return CityWeatherFragment().apply {
-                arguments = bundleOf(CITY_NAME_ARG to cityName)
+                arguments = bundleOf(CITY to cityUi)
             }
         }
     }

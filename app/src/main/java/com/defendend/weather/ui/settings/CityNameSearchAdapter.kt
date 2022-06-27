@@ -8,7 +8,7 @@ import com.defendend.weather.R
 import com.defendend.weather.models.city.CityUi
 
 class CityNameSearchAdapter(
-    private val onClick: (Int) -> Unit
+    private val onClick: (CityUi) -> Unit
 ) : ListAdapter<CityUi, SettingsNameHolder>(DiffCallbackName()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SettingsNameHolder {
         val layoutInflater = LayoutInflater.from(parent.context)

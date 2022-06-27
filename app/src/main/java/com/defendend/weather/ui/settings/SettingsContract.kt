@@ -11,7 +11,7 @@ sealed class SettingsEvent : UiEvent {
     ) : SettingsEvent()
 
     data class OnCityClick(
-        val id: Int
+        val cityUi: CityUi
     ) : SettingsEvent()
     object OnCloseSearch : SettingsEvent()
 }

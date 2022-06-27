@@ -25,10 +25,15 @@ class WeatherListViewModel @Inject constructor(
 
     private suspend fun observeCities() {
         cityRepository.citiesFlow().collect { cities ->
-            val cityNameList = cities.map { it.name }
-            val state = WeatherListState.Data(cityNameList = cityNameList)
+            val citiesWithoutDefault = mutableListOf<City>()
+
+            for (city in cities) {
+                if (city.name != "default") {
+                    citiesWithoutDefault.add(city)
+                }
+            }
+            val state = WeatherListState.createDataFromCities(cities = citiesWithoutDefault)
             postState(state)
         }
     }
-
 }

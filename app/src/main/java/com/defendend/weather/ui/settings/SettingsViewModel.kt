@@ -1,9 +1,12 @@
 package com.defendend.weather.ui.settings
 
 import com.defendend.weather.database.CityDao
+import com.defendend.weather.models.city.CityUi
 import com.defendend.weather.repository.CityNameRepository
+import com.defendend.weather.repository.WeatherRepository
 import com.defendend.weather.ui.base.BaseViewModel
 import com.defendend.weather.ui.base.UiEvent
+import com.defendend.weather.ui.weather_list.City
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.debounce
@@ -14,6 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
     private val cityNameRepository: CityNameRepository,
+    private val weatherRepository: WeatherRepository,
     private val cityDao: CityDao
 ) : BaseViewModel<SettingsState>() {
     override fun createInitialState(): SettingsState = SettingsState.Loading
@@ -64,9 +68,17 @@ class SettingsViewModel @Inject constructor(
 
     private suspend fun handleCityClick(event: SettingsEvent.OnCityClick) {
         postState(SettingsState.Loading)
-        print(123)
+        addNewCity(cityUi = event.cityUi)
         val cities = cityDao.getCities()
         postState(SettingsState.Data(cities = cities))
+    }
+
+    private suspend fun addNewCity(cityUi: CityUi) {
+        weatherRepository.updateWeatherForAdditionalCity(
+            lat = cityUi.lat,
+            lon = cityUi.lon,
+            timeZone = cityUi.timeZone
+        )
     }
 
     private suspend fun onCloseSearch() {

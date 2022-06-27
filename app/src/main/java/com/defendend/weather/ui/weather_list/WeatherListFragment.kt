@@ -39,6 +39,7 @@ class WeatherListFragment : Fragment() {
             viewPager.adapter = adapterFragment
             indicator.setViewPager(viewPager)
             settingButton.setOnClickListener { showSettings() }
+            adapterFragment?.registerAdapterDataObserver(indicator.adapterDataObserver)
         }
 
         lifecycleScope.launch {
@@ -68,7 +69,7 @@ class WeatherListFragment : Fragment() {
     }
 
     private fun showData(state: WeatherListState.Data) {
-        adapterFragment?.updateCities(state.cityNameList)
+        adapterFragment?.updateCities(state.citiesUi)
     }
 
 

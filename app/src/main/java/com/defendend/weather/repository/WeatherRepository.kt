@@ -3,8 +3,10 @@ package com.defendend.weather.repository
 import com.defendend.weather.R
 import com.defendend.weather.api.WeatherApi
 import com.defendend.weather.api.WeatherApi.Companion.TAG_RU
+import com.defendend.weather.database.CityDao
 import com.defendend.weather.models.city.CityNameResponse
 import com.defendend.weather.models.weather.*
+import com.defendend.weather.ui.weather_list.City
 import kotlinx.coroutines.CancellationException
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -13,14 +15,91 @@ import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.math.roundToInt
 
+private const val DEFAULT_CITY = "default"
+
 @Singleton
 class WeatherRepository @Inject constructor(
-    private val weatherApi: WeatherApi
+    private val weatherApi: WeatherApi,
+    private val cityDao: CityDao
 ) {
     private val localTag: String
         get() = Locale.getDefault().toLanguageTag().substring(0, 2)
 
-    suspend fun getWeather(lat: Double, lon: Double): Result<LocationWeather> {
+    suspend fun updateWeatherForCity(lat: Double, lon: Double): Result<LocationWeather> {
+        return getWeather(lat = lat, lon = lon)
+            .onSuccess { checkDefaultRoomCity(locationWeather = it, lat = lat, lon = lon) }
+    }
+
+    suspend fun updateWeatherForAdditionalCity(
+        lat: Double,
+        lon: Double,
+        timeZone: String
+    ): Result<LocationWeather> {
+        return getWeather(lat = lat, lon = lon)
+            .onSuccess {
+                checkAdditionalRoomCity(
+                    locationWeather = it,
+                    lat = lat,
+                    lon = lon,
+                    timeZone = timeZone
+                )
+            }
+    }
+
+    private suspend fun checkAdditionalRoomCity(
+        locationWeather: LocationWeather,
+        lat: Double,
+        lon: Double,
+        timeZone: String
+    ) {
+        val city = cityDao.getCity(locationWeather.currentCity)
+
+        val updateCity = City(
+            name = locationWeather.currentCity,
+            cityName = locationWeather.currentCity,
+            lat = lat,
+            lon = lon,
+            temperature = locationWeather.currentTemperature,
+            timeZone = timeZone,
+            weatherInfo = locationWeather.description,
+            minTemp = locationWeather.minTemp,
+            maxTemp = locationWeather.maxTemp
+        )
+
+        if (city == null) {
+            cityDao.addCity(city = updateCity)
+        } else {
+            cityDao.updateCity(city = updateCity)
+        }
+    }
+
+    private suspend fun checkDefaultRoomCity(
+        locationWeather: LocationWeather,
+        lat: Double,
+        lon: Double
+    ) {
+        val city = cityDao.getCity(DEFAULT_CITY)
+
+        val updateCity = City(
+            name = DEFAULT_CITY,
+            cityName = locationWeather.currentCity,
+            lat = lat,
+            lon = lon,
+            temperature = locationWeather.currentTemperature,
+            timeZone = "",
+            weatherInfo = locationWeather.description,
+            minTemp = locationWeather.minTemp,
+            maxTemp = locationWeather.maxTemp
+        )
+
+        if (city == null) {
+            cityDao.addCity(city = updateCity)
+        } else {
+            cityDao.updateCity(city = updateCity)
+        }
+    }
+
+    private suspend fun getWeather(lat: Double, lon: Double): Result<LocationWeather> {
         return getCurrentWeatherFromLocation(lat = lat, lon = lon)
             .flatMap { weather ->
                 getCityName(lat = lat, lon = lon)
