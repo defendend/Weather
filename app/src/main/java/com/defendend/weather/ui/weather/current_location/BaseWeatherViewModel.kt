@@ -15,7 +15,6 @@ abstract class BaseWeatherViewModel(
     override fun createInitialState(): WeatherState = WeatherState.Loading
 
 
-
     override suspend fun handleEvent(event: UiEvent) {
         when (event) {
             is WeatherEvent.Refresh -> refreshWeather()

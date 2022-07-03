@@ -14,7 +14,7 @@ class WeatherPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> CurrentLocationWeatherFragment.newInstance()
-            else -> CityWeatherFragment.newInstance(citiesList[position-1])
+            else -> CityWeatherFragment.newInstance(citiesList[position - 1])
         }
     }
 

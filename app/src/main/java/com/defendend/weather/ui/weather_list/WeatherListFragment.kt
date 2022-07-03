@@ -12,9 +12,12 @@ import androidx.lifecycle.repeatOnLifecycle
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.defendend.weather.R
 import com.defendend.weather.databinding.FragmentWeatherListBinding
+import com.defendend.weather.preference.WeatherListPreference
+import com.defendend.weather.ui.base.UiEffect
 import com.defendend.weather.ui.settings.SettingsFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class WeatherListFragment : Fragment() {
@@ -22,6 +25,9 @@ class WeatherListFragment : Fragment() {
     private val binding by viewBinding(FragmentWeatherListBinding::bind)
     private val viewModel by viewModels<WeatherListViewModel>()
     private var adapterFragment: WeatherPagerAdapter? = null
+
+    @Inject
+    lateinit var weatherListPreference: WeatherListPreference
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,11 +46,19 @@ class WeatherListFragment : Fragment() {
             indicator.setViewPager(viewPager)
             settingButton.setOnClickListener { showSettings() }
             adapterFragment?.registerAdapterDataObserver(indicator.adapterDataObserver)
+
+            viewPager.currentItem = weatherListPreference.getPosition()
         }
 
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 viewModel.state.collect(::handleState)
+            }
+        }
+
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                viewModel.effect.collect(::handleEffect)
             }
         }
     }
@@ -57,11 +71,22 @@ class WeatherListFragment : Fragment() {
             .commit()
     }
 
+    private fun handleEffect(effect: UiEffect) {
+        when (effect) {
+            is WeatherListEffect.UpdatePosition -> updateAdapterPosition(effect = effect)
+            is WeatherListEffect.BadConnect -> {}
+        }
+    }
+
     private fun handleState(state: WeatherListState) {
         when (state) {
             is WeatherListState.Loading -> showLoading()
             is WeatherListState.Data -> showData(state)
         }
+    }
+
+    private fun updateAdapterPosition(effect: WeatherListEffect.UpdatePosition) {
+        effect.position //postEffect
     }
 
     private fun showLoading() {
@@ -70,8 +95,8 @@ class WeatherListFragment : Fragment() {
 
     private fun showData(state: WeatherListState.Data) {
         adapterFragment?.updateCities(state.citiesUi)
+        binding.viewPager.currentItem = weatherListPreference.getPosition()
     }
-
 
     companion object {
         fun newInstance(): WeatherListFragment {

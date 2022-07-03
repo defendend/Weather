@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.ListAdapter
 import com.defendend.weather.R
 import com.defendend.weather.models.weather.Daily
 
-class WeatherDailyAdapter(private val daily: List<Daily>) :
-    ListAdapter<Daily, WeatherDailyHolder>(DiffCallbackDaily()) {
+class WeatherDailyAdapter
+    : ListAdapter<Daily, WeatherDailyHolder>(DiffCallbackDaily()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeatherDailyHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater.inflate(R.layout.item_list_daily_weather, parent, false)
@@ -17,11 +17,9 @@ class WeatherDailyAdapter(private val daily: List<Daily>) :
     }
 
     override fun onBindViewHolder(holder: WeatherDailyHolder, position: Int) {
-        val day = daily[position]
+        val day = getItem(position)
         holder.bind(daily = day)
     }
-
-    override fun getItemCount(): Int = daily.size
 }
 
 

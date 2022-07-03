@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.ListAdapter
 import com.defendend.weather.R
 import com.defendend.weather.models.weather.TileItem
 
-class WeatherCardItemAdapter(private val cardItems: List<TileItem>) :
-    ListAdapter<TileItem, WeatherCardItemHolder>(DiffCallbackCardItems()) {
+class WeatherCardItemAdapter
+    : ListAdapter<TileItem, WeatherCardItemHolder>(DiffCallbackCardItems()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeatherCardItemHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
 
@@ -24,14 +24,12 @@ class WeatherCardItemAdapter(private val cardItems: List<TileItem>) :
     }
 
     override fun onBindViewHolder(holder: WeatherCardItemHolder, position: Int) {
-        val cardItem = cardItems[position]
+        val cardItem = getItem(position)
         holder.bind(cardItem)
     }
 
-    override fun getItemCount(): Int = cardItems.size
-
     override fun getItemViewType(position: Int): Int {
-        return when (cardItems[position]) {
+        return when (getItem(position)) {
             is TileItem.BasicItem -> 0
             is TileItem.UvIndex -> 1
             is TileItem.Wind -> 1

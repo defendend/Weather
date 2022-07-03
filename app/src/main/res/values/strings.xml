@@ -83,4 +83,10 @@
     <string name="query_hint">Введите название города</string>
     <string name="title_settings_text">Погода</string>
     <string name="current_location">Текущее место</string>
+    <string name="back">Назад</string>
+    <string name="application_support">Поддержать приложение</string>
+    <string name="delete_city">Удалить город?</string>
+    <string name="delete_city_body">Вы уверены, что хотите удалить город из списка?</string>
+    <string name="delete_city_button">Удалить</string>
+    <string name="cancel_delete_city_button">Отмена</string>
 </resources>

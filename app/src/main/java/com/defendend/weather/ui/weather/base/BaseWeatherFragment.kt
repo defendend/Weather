@@ -27,9 +27,9 @@ abstract class BaseWeatherFragment : Fragment(R.layout.fragment_weather) {
 
     protected abstract val viewModel: BaseViewModel<WeatherState>
 
-    private var adapterHourly: WeatherHourlyAdapter = WeatherHourlyAdapter(emptyList())
-    private var adapterDaily: WeatherDailyAdapter = WeatherDailyAdapter(emptyList())
-    private var adapterCardItems: WeatherCardItemAdapter = WeatherCardItemAdapter(emptyList())
+    private var adapterHourly: WeatherHourlyAdapter = WeatherHourlyAdapter()
+    private var adapterDaily: WeatherDailyAdapter = WeatherDailyAdapter()
+    private var adapterCardItems: WeatherCardItemAdapter = WeatherCardItemAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -81,18 +81,15 @@ abstract class BaseWeatherFragment : Fragment(R.layout.fragment_weather) {
 
 
     private fun updateHourly(hourly: List<Hourly>) {
-        adapterHourly = WeatherHourlyAdapter(hourly)
-        binding.hourlyRecyclerView.adapter = adapterHourly
+        adapterHourly.submitList(hourly)
     }
 
     private fun updateDaily(daily: List<Daily>) {
-        adapterDaily = WeatherDailyAdapter(daily)
-        binding.dailyRecyclerView.adapter = adapterDaily
+        adapterDaily.submitList(daily)
     }
 
     private fun updateCardItems(cardItems: List<TileItem>) {
-        adapterCardItems = WeatherCardItemAdapter(cardItems)
-        binding.cardItemRecyclerView.adapter = adapterCardItems
+        adapterCardItems.submitList(cardItems)
     }
 
     private fun showLoading() {

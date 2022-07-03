@@ -43,8 +43,18 @@
         android:text="@string/title_settings_text"
         android:textSize="@dimen/settings_title"
         app:layout_constraintStart_toStartOf="@id/start_line"
-        app:layout_constraintEnd_toEndOf="@id/end_line"
+        app:layout_constraintEnd_toStartOf="@id/backTextView"
         app:layout_constraintTop_toTopOf="@id/top_line"/>
+
+    <TextView
+        android:id="@+id/backTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/back"
+        android:padding="@dimen/small_space"
+        android:textSize="@dimen/settings_back"
+        app:layout_constraintEnd_toStartOf="@id/end_line"
+        app:layout_constraintTop_toBottomOf="@id/top_line"/>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/searchCity"
@@ -52,7 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/normal_space"
         app:cardCornerRadius="@dimen/card_view_rectangle_radius"
-        app:cardElevation="@dimen/card_view_rectangle_radius"
+        app:cardElevation="@dimen/card_elevation"
         app:layout_constraintTop_toBottomOf="@id/titleSettings"
         app:layout_constraintStart_toStartOf="@id/start_line"
         app:layout_constraintEnd_toEndOf="@id/end_line"
@@ -84,6 +94,34 @@
         app:layout_constraintTop_toBottomOf="@id/chooseCityRecycler"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/applicationSupport"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/normal_space"
+        app:cardCornerRadius="@dimen/card_view_rectangle_radius"
+        app:cardElevation="@dimen/card_elevation"
+        app:layout_constraintTop_toBottomOf="@id/weatherCardRecycler"
+        app:layout_constraintStart_toEndOf="@id/start_line"
+        app:layout_constraintEnd_toStartOf="@id/end_line">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:layout_margin="@dimen/small_space"
+            android:text="@string/application_support"/>
+    </androidx.cardview.widget.CardView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/normal_space"
+        app:layout_constraintTop_toBottomOf="@id/applicationSupport"
+        app:layout_constraintStart_toEndOf="@id/start_line"
+        app:layout_constraintEnd_toStartOf="@id/end_line"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

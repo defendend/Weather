@@ -3,7 +3,6 @@ package com.defendend.weather.repository
 import com.defendend.weather.R
 import com.defendend.weather.api.WeatherApi
 import com.defendend.weather.api.WeatherApi.Companion.TAG_RU
-import com.defendend.weather.database.CityDao
 import com.defendend.weather.models.city.CityNameResponse
 import com.defendend.weather.models.weather.*
 import com.defendend.weather.ui.weather_list.City
@@ -20,10 +19,10 @@ private const val DEFAULT_CITY = "default"
 @Singleton
 class WeatherRepository @Inject constructor(
     private val weatherApi: WeatherApi,
-    private val cityDao: CityDao
+    private val cityRepository: CityRepository
 ) {
     private val localTag: String
-        get() = Locale.getDefault().toLanguageTag().substring(0, 2)
+        get() = Locale.getDefault().toLanguageTag().take(2)
 
     suspend fun updateWeatherForCity(lat: Double, lon: Double): Result<LocationWeather> {
         return getWeather(lat = lat, lon = lon)
@@ -33,7 +32,8 @@ class WeatherRepository @Inject constructor(
     suspend fun updateWeatherForAdditionalCity(
         lat: Double,
         lon: Double,
-        timeZone: String
+        timeZone: String,
+        id: String
     ): Result<LocationWeather> {
         return getWeather(lat = lat, lon = lon)
             .onSuccess {
@@ -41,7 +41,8 @@ class WeatherRepository @Inject constructor(
                     locationWeather = it,
                     lat = lat,
                     lon = lon,
-                    timeZone = timeZone
+                    timeZone = timeZone,
+                    id = id
                 )
             }
     }
@@ -50,13 +51,15 @@ class WeatherRepository @Inject constructor(
         locationWeather: LocationWeather,
         lat: Double,
         lon: Double,
-        timeZone: String
+        timeZone: String,
+        id: String
     ) {
-        val city = cityDao.getCity(locationWeather.currentCity)
+        val city = cityRepository.getCity(id = id)
 
         val updateCity = City(
-            name = locationWeather.currentCity,
+            id = id,
             cityName = locationWeather.currentCity,
+            cityNameEn = locationWeather.cityNameEn,
             lat = lat,
             lon = lon,
             temperature = locationWeather.currentTemperature,
@@ -67,9 +70,9 @@ class WeatherRepository @Inject constructor(
         )
 
         if (city == null) {
-            cityDao.addCity(city = updateCity)
+            cityRepository.addCity(city = updateCity)
         } else {
-            cityDao.updateCity(city = updateCity)
+            cityRepository.updateCity(city = updateCity)
         }
     }
 
@@ -78,11 +81,12 @@ class WeatherRepository @Inject constructor(
         lat: Double,
         lon: Double
     ) {
-        val city = cityDao.getCity(DEFAULT_CITY)
+        val city = cityRepository.getCity(DEFAULT_CITY)
 
         val updateCity = City(
-            name = DEFAULT_CITY,
+            id = DEFAULT_CITY,
             cityName = locationWeather.currentCity,
+            cityNameEn = locationWeather.cityNameEn,
             lat = lat,
             lon = lon,
             temperature = locationWeather.currentTemperature,
@@ -93,9 +97,9 @@ class WeatherRepository @Inject constructor(
         )
 
         if (city == null) {
-            cityDao.addCity(city = updateCity)
+            cityRepository.addCity(city = updateCity)
         } else {
-            cityDao.updateCity(city = updateCity)
+            cityRepository.updateCity(city = updateCity)
         }
     }
 
@@ -120,6 +124,7 @@ class WeatherRepository @Inject constructor(
 
         val firstCity = cityName.firstOrNull()
         val name = firstCity?.name.orEmpty()
+        val nameEn = firstCity?.localNames?.en ?: name
         val currentCity = if (localTag == TAG_RU) {
             firstCity?.localNames?.ru ?: name
         } else {
@@ -273,6 +278,7 @@ class WeatherRepository @Inject constructor(
 
         return LocationWeather(
             currentCity = currentCity,
+            cityNameEn = nameEn,
             currentTemperature = currentTemperature.toString(),
             description = description,
             minTemp = minTemp,

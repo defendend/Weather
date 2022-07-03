@@ -2,13 +2,7 @@ package com.defendend.weather.ui.weather_list
 
 import com.defendend.weather.models.city.CityUi
 import com.defendend.weather.ui.base.UiEffect
-import com.defendend.weather.ui.base.UiEvent
 import com.defendend.weather.ui.base.UiState
-
-sealed class WeatherListEvent : UiEvent {
-    object AddNewCity : WeatherListEvent()
-    object DeleteCity : WeatherListEvent()
-}
 
 sealed class WeatherListState : UiState {
     object Loading : WeatherListState()
@@ -20,8 +14,8 @@ sealed class WeatherListState : UiState {
         fun createDataFromCities(cities: List<City>): Data {
             val citiesUi = cities.map {
                 CityUi(
-                    id = 0,
-                    name = it.name,
+                    id = it.id,
+                    name = it.cityName,
                     lat = it.lat,
                     lon = it.lon,
                     timeZone = it.timeZone
@@ -34,5 +28,8 @@ sealed class WeatherListState : UiState {
 
 sealed class WeatherListEffect : UiEffect {
     object BadConnect : WeatherListEffect()
+    data class UpdatePosition(
+        val position: Int
+    ) : WeatherListEffect()
 }
 

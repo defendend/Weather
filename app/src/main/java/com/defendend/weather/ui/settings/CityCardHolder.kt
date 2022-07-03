@@ -5,6 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.defendend.weather.R
+import com.defendend.weather.api.WeatherApi.Companion.TAG_RU
 import com.defendend.weather.databinding.ListItemCardWeatherBinding
 import com.defendend.weather.ui.weather_list.City
 import java.text.SimpleDateFormat
@@ -19,11 +20,17 @@ class CityCardHolder(view: View) : RecyclerView.ViewHolder(view) {
         ListItemCardWeatherBinding::bind
     )
 
-    fun bind(city: City) {
+    fun bind(city: City, onClick: (Int) -> Unit) {
+        val localTag: String = Locale.getDefault().toLanguageTag().take(2)
+
         binding.apply {
-            if (city.name == DEFAULT_CITY) {
+            if (city.id == DEFAULT_CITY) {
+                if (localTag == TAG_RU) {
+                    localTime.text = city.cityName
+                } else {
+                    localTime.text = city.cityNameEn
+                }
                 cityName.text = context.getString(R.string.current_location)
-                localTime.text = city.cityName
                 weatherInfoText.text = city.weatherInfo
                 currentTemperature.text =
                     context.getString(R.string.temperature_rec, city.temperature)
@@ -34,14 +41,21 @@ class CityCardHolder(view: View) : RecyclerView.ViewHolder(view) {
                 val time = Calendar.getInstance().time
                 sdf.timeZone = TimeZone.getTimeZone(city.timeZone)
                 localTime.text = sdf.format(time)
-                cityName.text = city.name
-
+                if (localTag == TAG_RU) {
+                    cityName.text = city.cityName
+                } else {
+                    cityName.text = city.cityNameEn
+                }
                 weatherInfoText.text = city.weatherInfo
                 currentTemperature.text =
                     context.getString(R.string.temperature_rec, city.temperature)
                 maxMinTemperature.text =
                     context.getString(R.string.min_max_temperature, city.maxTemp, city.minTemp)
             }
+        }
+
+        binding.root.setOnClickListener {
+            onClick(absoluteAdapterPosition)
         }
     }
 }

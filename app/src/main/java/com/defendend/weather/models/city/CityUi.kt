@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class CityUi(
-    val id: Int,
+    val id: String,
     val name: String,
     val lat: Double,
     val lon: Double,

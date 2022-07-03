@@ -13,7 +13,6 @@ import android.provider.Settings
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.view.WindowCompat
 import com.defendend.weather.MainActivity.LocationConstants.DISTANCE_TO_NEW_LOCATION_M
 import com.defendend.weather.MainActivity.LocationConstants.REQUEST_CODE_GPS
 import com.defendend.weather.MainActivity.LocationConstants.TIME_TO_NEW_LOCATION_MS

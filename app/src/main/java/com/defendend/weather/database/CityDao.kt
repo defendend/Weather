@@ -13,8 +13,8 @@ interface CityDao {
     @Query("SELECT * FROM city")
     fun citiesFlow(): Flow<List<City>>
 
-    @Query("SELECT * FROM city WHERE name=:name")
-    suspend fun getCity(name: String): City?
+    @Query("SELECT * FROM city WHERE id=:id")
+    suspend fun getCity(id: String): City?
 
     @Insert
     fun addCity(city: City)

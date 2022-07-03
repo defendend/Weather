@@ -8,8 +8,8 @@ import com.defendend.weather.R
 import com.defendend.weather.models.weather.Hourly
 import com.defendend.weather.ui.weather.base.WeatherHourlyHolder
 
-class WeatherHourlyAdapter(private val hourly: List<Hourly>) :
-    ListAdapter<Hourly, WeatherHourlyHolder>(DiffCallbackHourly()) {
+class WeatherHourlyAdapter
+    : ListAdapter<Hourly, WeatherHourlyHolder>(DiffCallbackHourly()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeatherHourlyHolder {
 
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -20,11 +20,9 @@ class WeatherHourlyAdapter(private val hourly: List<Hourly>) :
     }
 
     override fun onBindViewHolder(holder: WeatherHourlyHolder, position: Int) {
-        val hourlyWeather = hourly[position]
+        val hourlyWeather = getItem(position)
         holder.bind(hourlyWeather)
     }
-
-    override fun getItemCount(): Int = hourly.size
 
 }
 

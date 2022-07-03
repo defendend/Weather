@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.ListAdapter
 import com.defendend.weather.R
 import com.defendend.weather.ui.weather_list.City
 
-class CityCardAdapter : ListAdapter<City, CityCardHolder>(DiffCallbackCityCard()) {
+class CityCardAdapter(
+    private val onClick: (Int) -> Unit
+) : ListAdapter<City, CityCardHolder>(DiffCallbackCityCard()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CityCardHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
 
@@ -18,14 +20,14 @@ class CityCardAdapter : ListAdapter<City, CityCardHolder>(DiffCallbackCityCard()
 
     override fun onBindViewHolder(holder: CityCardHolder, position: Int) {
         val city = getItem(position)
-        holder.bind(city = city)
+        holder.bind(city = city, onClick = onClick)
     }
 
 }
 
 private class DiffCallbackCityCard : DiffUtil.ItemCallback<City>() {
     override fun areItemsTheSame(oldItem: City, newItem: City): Boolean {
-        return (oldItem.name == newItem.name && oldItem.temperature == newItem.temperature)
+        return (oldItem.id == newItem.id && oldItem.temperature == newItem.temperature)
     }
 
     override fun areContentsTheSame(oldItem: City, newItem: City): Boolean {

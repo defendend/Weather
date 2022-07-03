@@ -1,12 +1,9 @@
 package com.defendend.weather.repository
 
 import com.defendend.weather.api.CityApi
-import com.defendend.weather.api.WeatherApi
 import com.defendend.weather.models.city.CitiesListResponse
 import com.defendend.weather.models.city.CityInfo
-import com.defendend.weather.models.city.CityNamesList
 import kotlinx.coroutines.CancellationException
-import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
 

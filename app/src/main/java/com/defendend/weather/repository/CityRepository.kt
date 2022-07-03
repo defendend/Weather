@@ -6,13 +6,19 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
 
-
+private const val DEFAULT_CITY = "default"
 
 @Singleton
 class CityRepository @Inject constructor(private val cityDao: CityDao) {
 
-    suspend fun getCities(): List<City> = cityDao.getCities()
-    suspend fun getCity(name: String): City? = cityDao.getCity(name = name)
+    suspend fun getCities(): List<City> {
+        val cities = cityDao.getCities()
+        val city = mutableListOf(cities.first { it.id == DEFAULT_CITY })
+        city.addAll(cities.filter { it.id != DEFAULT_CITY })
+        return city.toList()
+    }
+
+    suspend fun getCity(id: String): City? = cityDao.getCity(id = id)
 
     fun citiesFlow(): Flow<List<City>> = cityDao.citiesFlow()
 

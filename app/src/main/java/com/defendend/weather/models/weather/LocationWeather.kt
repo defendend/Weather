@@ -2,6 +2,7 @@ package com.defendend.weather.models.weather
 
 data class LocationWeather(
     val currentCity: String,
+    val cityNameEn: String,
     val currentTemperature: String,
     val description: String,
     val minTemp: Int,

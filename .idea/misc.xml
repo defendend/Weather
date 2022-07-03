@@ -28,6 +28,8 @@
         <entry key="..\:/Users/ivsac/Weather/app/src/main/res/drawable/ic_thunderstorm.xml" value="0.1" />
         <entry key="..\:/Users/ivsac/Weather/app/src/main/res/drawable/ic_wind.xml" value="0.1" />
         <entry key="..\:/Users/ivsac/Weather/app/src/main/res/layout/activity_main.xml" value="0.176" />
+        <entry key="..\:/Users/ivsac/Weather/app/src/main/res/layout/alert_dialog_card.xml" value="0.21388888888888888" />
+        <entry key="..\:/Users/ivsac/Weather/app/src/main/res/layout/app_support_fragment.xml" value="0.20461538461538462" />
         <entry key="..\:/Users/ivsac/Weather/app/src/main/res/layout/fragment_weather.xml" value="0.264" />
         <entry key="..\:/Users/ivsac/Weather/app/src/main/res/layout/fragment_weather_list.xml" value="0.22604166666666667" />
         <entry key="..\:/Users/ivsac/Weather/app/src/main/res/layout/item_list_daily_weather.xml" value="0.22604166666666667" />

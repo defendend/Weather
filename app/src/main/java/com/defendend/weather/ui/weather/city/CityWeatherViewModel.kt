@@ -3,7 +3,6 @@ package com.defendend.weather.ui.weather.city
 import com.defendend.weather.models.city.CityUi
 import com.defendend.weather.repository.WeatherRepository
 import com.defendend.weather.ui.base.UiEvent
-import com.defendend.weather.ui.base.BaseViewModel
 import com.defendend.weather.ui.weather.base.WeatherEvent
 import com.defendend.weather.ui.weather.base.WeatherState
 import com.defendend.weather.ui.weather.current_location.BaseWeatherViewModel
@@ -48,13 +47,13 @@ class CityWeatherViewModel @Inject constructor(
         weatherRepository.updateWeatherForAdditionalCity(
             lat = mCity.lat,
             lon = mCity.lon,
-            timeZone = mCity.timeZone
+            timeZone = mCity.timeZone,
+            id = mCity.id
         ).onSuccess {
             val state = createNewState(locationWeather = it)
             postState(state)
         }.onFailure {
             println(it)
         }
-        //postState()
     }
 }

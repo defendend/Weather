@@ -50,17 +50,17 @@ data class CityInfo(
 //    @SerialName("wiki")
 //    val wiki: String? = null
 ) {
-    fun convertToUi() : CityUi{
+    fun convertToUi(): CityUi {
         val localTag = Locale.getDefault().toLanguageTag().take(2)
 
         val name = if (localTag == TAG_RU) {
             fullName.orEmpty()
-        }else {
+        } else {
             fullEnglish.orEmpty()
         }
 
         return CityUi(
-            id = id ?: 0,
+            id = (id ?: 0).toString(),
             name = name,
             lat = latitude ?: 0.0,
             lon = longitude ?: 0.0,

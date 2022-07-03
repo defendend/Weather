@@ -35,7 +35,6 @@ class CurrentLocationViewModel @Inject constructor(
         val coordinates = locationProvider.takeCurrentCoordinates()
         if (coordinates != null) {
             postState(WeatherState.Loading)
-
             val (lat, lon) = coordinates
             updateWeather(
                 lat = lat,
