@@ -31,9 +31,6 @@ class WeatherListViewModel @Inject constructor(
     }
 
     private suspend fun updatePosition(event: WeatherListEvent.Position) {
-        val cities = cityRepository.getCities().filter { it.id != DEFAULT_CITY }
-        val state = WeatherListState.createDataFromCities(cities = cities)
-        postState(state = state)
         postEffect(WeatherListEffect.UpdatePosition(position = event.position))
     }
 

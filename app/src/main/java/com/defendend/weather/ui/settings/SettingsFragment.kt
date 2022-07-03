@@ -124,6 +124,11 @@ class SettingsFragment : Fragment(R.layout.settings_fragment) {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        setFragmentResult(TAG, bundleOf(TAG to 0))
+    }
+
     private fun showSupportTheApp() {
 //        val fragment =
 //        parentFragmentManager.beginTransaction()
