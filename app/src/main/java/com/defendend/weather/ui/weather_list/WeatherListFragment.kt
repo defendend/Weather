@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -64,6 +65,11 @@ class WeatherListFragment : Fragment() {
     }
 
     private fun showSettings() {
+        setFragmentResultListener(SettingsFragment.TAG) { key, bundle ->
+            val position = weatherListPreference.getPosition()
+            val event = WeatherListEvent.Position(position = position)
+            viewModel.postEvent(event = event)
+        }
         val fragment = SettingsFragment()
         parentFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainer, fragment, SettingsFragment.TAG)
@@ -86,7 +92,7 @@ class WeatherListFragment : Fragment() {
     }
 
     private fun updateAdapterPosition(effect: WeatherListEffect.UpdatePosition) {
-        effect.position //postEffect
+        binding.viewPager.setCurrentItem(effect.position,false)
     }
 
     private fun showLoading() {

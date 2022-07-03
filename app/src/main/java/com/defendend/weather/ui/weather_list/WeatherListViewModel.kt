@@ -5,6 +5,7 @@ import com.defendend.weather.repository.CityRepository
 import com.defendend.weather.ui.base.BaseViewModel
 import com.defendend.weather.ui.base.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 private const val DEFAULT_CITY = "default"
@@ -24,7 +25,16 @@ class WeatherListViewModel @Inject constructor(
     }
 
     override suspend fun handleEvent(event: UiEvent) {
+        when (event) {
+            is WeatherListEvent.Position -> updatePosition(event = event)
+        }
+    }
 
+    private suspend fun updatePosition(event: WeatherListEvent.Position) {
+        val cities = cityRepository.getCities().filter { it.id != DEFAULT_CITY }
+        val state = WeatherListState.createDataFromCities(cities = cities)
+        postState(state = state)
+        postEffect(WeatherListEffect.UpdatePosition(position = event.position))
     }
 
     private suspend fun observeCities() {

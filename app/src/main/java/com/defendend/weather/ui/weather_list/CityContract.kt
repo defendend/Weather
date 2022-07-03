@@ -2,7 +2,14 @@ package com.defendend.weather.ui.weather_list
 
 import com.defendend.weather.models.city.CityUi
 import com.defendend.weather.ui.base.UiEffect
+import com.defendend.weather.ui.base.UiEvent
 import com.defendend.weather.ui.base.UiState
+
+sealed class WeatherListEvent : UiEvent {
+    data class Position(
+        val position: Int
+    ) : WeatherListEvent()
+}
 
 sealed class WeatherListState : UiState {
     object Loading : WeatherListState()

@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -104,6 +106,7 @@ class SettingsFragment : Fragment(R.layout.settings_fragment) {
             }
 
             backTextView.setOnClickListener {
+                setFragmentResult(TAG, bundleOf(TAG to 0))
                 parentFragmentManager.popBackStack()
             }
         }
@@ -167,6 +170,7 @@ class SettingsFragment : Fragment(R.layout.settings_fragment) {
     }
 
     private fun onCardCityClick() {
+        setFragmentResult(TAG, bundleOf(TAG to 0))
         parentFragmentManager.popBackStack()
     }
 
