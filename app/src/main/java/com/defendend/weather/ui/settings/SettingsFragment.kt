@@ -1,10 +1,7 @@
 package com.defendend.weather.ui.settings
 
-import android.R.attr
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -17,7 +14,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.room.RoomMasterTable.TABLE_NAME
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.defendend.weather.R
 import com.defendend.weather.databinding.SettingsFragmentBinding
@@ -25,7 +21,6 @@ import com.defendend.weather.models.city.CityUi
 import com.defendend.weather.ui.base.UiEffect
 import com.defendend.weather.ui.weather_list.City
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 
@@ -106,7 +101,6 @@ class SettingsFragment : Fragment(R.layout.settings_fragment) {
             }
 
             backTextView.setOnClickListener {
-                setFragmentResult(TAG, bundleOf(TAG to 0))
                 parentFragmentManager.popBackStack()
             }
         }
@@ -122,11 +116,6 @@ class SettingsFragment : Fragment(R.layout.settings_fragment) {
                 viewModel.effect.collect(::handleEffect)
             }
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        setFragmentResult(TAG, bundleOf(TAG to 0))
     }
 
     private fun showSupportTheApp() {
@@ -175,7 +164,6 @@ class SettingsFragment : Fragment(R.layout.settings_fragment) {
     }
 
     private fun onCardCityClick() {
-        setFragmentResult(TAG, bundleOf(TAG to 0))
         parentFragmentManager.popBackStack()
     }
 

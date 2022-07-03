@@ -5,7 +5,8 @@ import com.defendend.weather.repository.CityRepository
 import com.defendend.weather.ui.base.BaseViewModel
 import com.defendend.weather.ui.base.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 private const val DEFAULT_CITY = "default"
@@ -30,18 +31,18 @@ class WeatherListViewModel @Inject constructor(
         }
     }
 
-    private suspend fun updatePosition(event: WeatherListEvent.Position) {
-        postEffect(WeatherListEffect.UpdatePosition(position = event.position))
+    private fun updatePosition(event: WeatherListEvent.Position) {
+        weatherListPreference.setPosition(event.position)
     }
 
     private suspend fun observeCities() {
-        cityRepository.citiesFlow().collect { cities ->
-            val citiesWithoutDefault = cities.filter { it.id != DEFAULT_CITY }
-            val state = WeatherListState.createDataFromCities(cities = citiesWithoutDefault)
-            val position = weatherListPreference.getPosition()
-            val effect = WeatherListEffect.UpdatePosition(position = position)
-            postState(state = state)
-            postEffect(effect = effect)
-        }
+        cityRepository.citiesFlow()
+            .map { cities -> cities.filter { it.id != DEFAULT_CITY } }
+            .combine(weatherListPreference.position) { cities, position ->
+                WeatherListState.createDataFromCities(
+                    selectedPosition = position,
+                    cities = cities
+                )
+            }.collect { postState(state = it) }
     }
 }

@@ -14,11 +14,12 @@ sealed class WeatherListEvent : UiEvent {
 sealed class WeatherListState : UiState {
     object Loading : WeatherListState()
     data class Data(
+        val selectedPosition: Int,
         val citiesUi: List<CityUi>
     ) : WeatherListState()
 
     companion object {
-        fun createDataFromCities(cities: List<City>): Data {
+        fun createDataFromCities(selectedPosition: Int, cities: List<City>): Data {
             val citiesUi = cities.map {
                 CityUi(
                     id = it.id,
@@ -28,7 +29,7 @@ sealed class WeatherListState : UiState {
                     timeZone = it.timeZone
                 )
             }
-            return Data(citiesUi = citiesUi)
+            return Data(selectedPosition = selectedPosition, citiesUi = citiesUi)
         }
     }
 }

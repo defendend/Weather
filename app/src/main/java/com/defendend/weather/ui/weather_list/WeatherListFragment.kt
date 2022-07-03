@@ -10,6 +10,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.defendend.weather.R
 import com.defendend.weather.databinding.FragmentWeatherListBinding
@@ -41,14 +43,20 @@ class WeatherListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        adapterFragment = WeatherPagerAdapter(this@WeatherListFragment)
         binding.apply {
-            adapterFragment = WeatherPagerAdapter(this@WeatherListFragment)
             viewPager.adapter = adapterFragment
+            adapterFragment
             indicator.setViewPager(viewPager)
             settingButton.setOnClickListener { showSettings() }
             adapterFragment?.registerAdapterDataObserver(indicator.adapterDataObserver)
-
-            viewPager.currentItem = weatherListPreference.getPosition()
+            viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    val event = WeatherListEvent.Position(position = position)
+                    viewModel.postEvent(event = event)
+                }
+            })
         }
 
         lifecycleScope.launch {
@@ -79,7 +87,7 @@ class WeatherListFragment : Fragment() {
 
     private fun handleEffect(effect: UiEffect) {
         when (effect) {
-            is WeatherListEffect.UpdatePosition -> updateAdapterPosition(effect = effect)
+//            is WeatherListEffect.UpdatePosition -> updateAdapterPosition(effect = effect)
             is WeatherListEffect.BadConnect -> {}
         }
     }
@@ -101,7 +109,7 @@ class WeatherListFragment : Fragment() {
 
     private fun showData(state: WeatherListState.Data) {
         adapterFragment?.updateCities(state.citiesUi)
-        binding.viewPager.currentItem = weatherListPreference.getPosition()
+        binding.viewPager.setCurrentItem(state.selectedPosition,false)
     }
 
     companion object {

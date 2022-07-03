@@ -57,16 +57,4 @@ class CityDeleteDialog : DialogFragment() {
         setFragmentResult(DIALOG_RESULT, bundleOf(DIALOG_RESULT to result))
     }
 
-//    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-//        return activity?.let {
-//            val builder =AlertDialog.Builder(it)
-//            val inflater = requireActivity().layoutInflater
-//            val view = inflater.inflate(R.layout.alert_dialog_card, null)
-//
-//            builder.setView(view)
-//
-//            builder.create()
-//
-//        } ?: throw IllegalStateException("Activity cannot be null")
-//    }
 }
