@@ -89,4 +89,9 @@
     <string name="delete_city_body">Вы уверены, что хотите удалить город из списка?</string>
     <string name="delete_city_button">Удалить</string>
     <string name="cancel_delete_city_button">Отмена</string>
+    <string name="title_app_supporting">Уважаемый пользователь.</string>
+    <string name="info_text_app_supporting">На данной странице, вы можете предложить идею по улучшению приложения или пожертвовать средства, которые пойдут на дальнейшее развитие приложения.</string>
+    <string name="user_error_info">В том случае, если вы нашли какую-либо ошибку в работе приложения или визуальный баг, прошу вас:\n1) Сделать снимок экрана, с данной ошибкой.\n2) Кратко описать условия, при которых вы ее нашли.\n3) Нажать кнопку сообщить о проблеме и отправить письмо с данным текстом и изображением.</string>
+    <string name="user_error_title">Если нашли ошибку в приложении:</string>
+    <string name="card_button_error_message">Сообщить о проблеме</string>
 </resources>

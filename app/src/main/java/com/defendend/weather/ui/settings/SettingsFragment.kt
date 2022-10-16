@@ -3,9 +3,7 @@ package com.defendend.weather.ui.settings
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.SearchView
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -19,6 +17,7 @@ import com.defendend.weather.R
 import com.defendend.weather.databinding.SettingsFragmentBinding
 import com.defendend.weather.models.city.CityUi
 import com.defendend.weather.ui.base.UiEffect
+import com.defendend.weather.ui.support.AppSupportFragment
 import com.defendend.weather.ui.weather_list.City
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -119,11 +118,11 @@ class SettingsFragment : Fragment(R.layout.settings_fragment) {
     }
 
     private fun showSupportTheApp() {
-//        val fragment =
-//        parentFragmentManager.beginTransaction()
-//            .replace(R.id.fragmentContainer, , )
-//            .addToBackStack()
-//            .commit()
+        val fragment = AppSupportFragment()
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainer, fragment, AppSupportFragment.TAG)
+            .addToBackStack(AppSupportFragment.TAG)
+            .commit()
     }
 
     private fun showDeleteAlert() {

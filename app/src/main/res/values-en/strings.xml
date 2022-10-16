@@ -87,4 +87,9 @@
     <string name="delete_city_body">Are you sure you want to remove a city from the list?</string>
     <string name="delete_city_button">Remove</string>
     <string name="cancel_delete_city_button">Cancel</string>
+    <string name="title_app_supporting">Dear user.</string>
+    <string name="info_text_app_supporting">On this page, you can suggest an idea to improve the application or donate funds that will be used for the further development of the application.</string>
+    <string name="user_error_info">In the event that you find any error in the operation of the application or a visual bug, please:\n1) Take a screenshot with this error.\n2) Briefly describe the conditions under which you found it.\n3) Click the report a problem button and send an email with this text and image.</string>
+    <string name="user_error_title">If you find an error in the application:</string>
+    <string name="card_button_error_message">Report a problem</string>
 </resources>
