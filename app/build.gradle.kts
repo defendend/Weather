@@ -58,6 +58,8 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.4")
     implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0")
 
+    implementation("androidx.work:work-runtime-ktx:2.7.1")
+
     implementation("com.squareup.okhttp3:okhttp:4.10.0")
 
     implementation("androidx.room:room-runtime:2.4.3")
