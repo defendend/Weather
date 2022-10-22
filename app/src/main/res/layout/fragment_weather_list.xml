@@ -20,9 +20,9 @@
         android:layout_height="32dp"
         android:layout_margin="8dp"
         android:background="@drawable/ic_settings"
+        android:elevation="@dimen/extra_small_space"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:elevation="@dimen/extra_small_space"
         tools:ignore="ContentDescription" />
 
     <me.relex.circleindicator.CircleIndicator3

@@ -3,127 +3,127 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/settingsContainer"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/top_line"
-        android:layout_width="1dp"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="24dp" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/settingsContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/bottom_line"
-        android:layout_width="1dp"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_end="16dp" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/top_line"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="24dp" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/start_line"
-        android:layout_width="1dp"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="16dp" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/bottom_line"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_end="16dp" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/end_line"
-        android:layout_width="1dp"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="16dp" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/start_line"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="16dp" />
 
-    <TextView
-        android:id="@+id/titleSettings"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/title_settings_text"
-        android:textSize="@dimen/settings_title"
-        app:layout_constraintStart_toStartOf="@id/start_line"
-        app:layout_constraintEnd_toStartOf="@id/backTextView"
-        app:layout_constraintTop_toTopOf="@id/top_line"/>
-
-    <TextView
-        android:id="@+id/backTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/back"
-        android:padding="@dimen/small_space"
-        android:textSize="@dimen/settings_back"
-        app:layout_constraintEnd_toStartOf="@id/end_line"
-        app:layout_constraintTop_toBottomOf="@id/top_line"/>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/searchCity"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/normal_space"
-        app:cardCornerRadius="@dimen/card_view_rectangle_radius"
-        app:cardElevation="@dimen/card_elevation"
-        app:layout_constraintTop_toBottomOf="@id/titleSettings"
-        app:layout_constraintStart_toStartOf="@id/start_line"
-        app:layout_constraintEnd_toEndOf="@id/end_line"
-        >
-
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/searchView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:iconifiedByDefault="false"
-            app:defaultQueryHint="@string/query_hint"
-            app:queryBackground="@android:color/transparent"/>
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/chooseCityRecycler"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/searchCity"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/weatherCardRecycler"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/normal_space"
-        app:layout_constraintTop_toBottomOf="@id/chooseCityRecycler"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/applicationSupport"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/normal_space"
-        app:cardCornerRadius="@dimen/card_view_rectangle_radius"
-        app:cardElevation="@dimen/card_elevation"
-        app:layout_constraintTop_toBottomOf="@id/weatherCardRecycler"
-        app:layout_constraintStart_toEndOf="@id/start_line"
-        app:layout_constraintEnd_toStartOf="@id/end_line">
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/end_line"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="16dp" />
 
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/titleSettings"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textSize="20sp"
-            android:layout_margin="@dimen/small_space"
-            android:text="@string/application_support"/>
-    </androidx.cardview.widget.CardView>
+            android:text="@string/title_settings_text"
+            android:textSize="@dimen/settings_title"
+            app:layout_constraintEnd_toStartOf="@id/backTextView"
+            app:layout_constraintStart_toStartOf="@id/start_line"
+            app:layout_constraintTop_toTopOf="@id/top_line" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/normal_space"
-        app:layout_constraintTop_toBottomOf="@id/applicationSupport"
-        app:layout_constraintStart_toEndOf="@id/start_line"
-        app:layout_constraintEnd_toStartOf="@id/end_line"/>
+        <TextView
+            android:id="@+id/backTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/small_space"
+            android:text="@string/back"
+            android:textSize="@dimen/settings_back"
+            app:layout_constraintEnd_toStartOf="@id/end_line"
+            app:layout_constraintTop_toBottomOf="@id/top_line" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/searchCity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normal_space"
+            app:cardCornerRadius="@dimen/card_view_rectangle_radius"
+            app:cardElevation="@dimen/card_elevation"
+            app:layout_constraintEnd_toEndOf="@id/end_line"
+            app:layout_constraintStart_toStartOf="@id/start_line"
+            app:layout_constraintTop_toBottomOf="@id/titleSettings">
 
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:defaultQueryHint="@string/query_hint"
+                app:iconifiedByDefault="false"
+                app:queryBackground="@android:color/transparent" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/chooseCityRecycler"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/searchCity" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/weatherCardRecycler"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normal_space"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/chooseCityRecycler" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/applicationSupport"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normal_space"
+            app:cardCornerRadius="@dimen/card_view_rectangle_radius"
+            app:cardElevation="@dimen/card_elevation"
+            app:layout_constraintEnd_toStartOf="@id/end_line"
+            app:layout_constraintStart_toEndOf="@id/start_line"
+            app:layout_constraintTop_toBottomOf="@id/weatherCardRecycler">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/small_space"
+                android:gravity="center"
+                android:text="@string/application_support"
+                android:textSize="20sp"
+                android:visibility="gone" />
+        </androidx.cardview.widget.CardView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/normal_space"
+            app:layout_constraintEnd_toStartOf="@id/end_line"
+            app:layout_constraintStart_toEndOf="@id/start_line"
+            app:layout_constraintTop_toBottomOf="@id/applicationSupport" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>
