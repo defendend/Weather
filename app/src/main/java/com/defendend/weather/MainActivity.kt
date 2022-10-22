@@ -13,11 +13,9 @@ import android.provider.Settings
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.work.*
 import com.defendend.weather.MainActivity.LocationConstants.DISTANCE_TO_NEW_LOCATION_M
 import com.defendend.weather.MainActivity.LocationConstants.REQUEST_CODE_GPS
 import com.defendend.weather.MainActivity.LocationConstants.TIME_TO_NEW_LOCATION_MS
-import com.defendend.weather.foregroundwork.ForegroundWorker
 import com.defendend.weather.location.LocationProvider
 import com.defendend.weather.ui.weather_list.WeatherListFragment
 import com.google.android.gms.location.*
@@ -26,7 +24,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 
@@ -52,16 +49,6 @@ class MainActivity : AppCompatActivity(), LocationListener {
         checkUserPermissions()
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-
-        val constraints = Constraints.Builder()
-            .build()
-        val work = OneTimeWorkRequestBuilder<ForegroundWorker>()
-            .setConstraints(constraints)
-            .build()
-        val workManager = WorkManager.getInstance(applicationContext)
-        workManager
-            .enqueueUniqueWork("WeatherForeground", ExistingWorkPolicy.KEEP, work)
-
 
         val currentFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentContainer)
